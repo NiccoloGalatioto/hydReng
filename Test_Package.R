@@ -13,9 +13,6 @@
 #   Check Package:             'Ctrl + Shift + E'
 #   Test Package:              'Ctrl + Shift + T'
 
-hello <- function() {
-  print("Hello, world!")
-}
 
 myPaths<-.libPaths()
 newpath<-"T:/07_TG-Wasserbau/02_Allgemein/01_Informatik/GIT/gai/library"
@@ -26,10 +23,15 @@ library(devtools) # Tools to Make Developing R Packages Easier
 library(testthat) # Unit Testing for R
 library(usethis)  # Automate Package and Project Setup
 library(rhub)
+library(Rtools)
 
 devtools::document()
 devtools::test()
 devtools::check()
 
-Sys.setenv(GITLAB_PAT = "XsGdb_JXXoTdfbFVNLBZ")
-rhub::rhub_check()
+devtools::check_rhub()
+
+Sys.setenv(GITHUB_PAT_DEV_TKCONSULT_CH = "b-KPXhp8G3SN-_Q7zeYS")
+Sys.getenv("GITLAB_PAT")
+rhub::rhub_platforms()
+rhub::rhub_check(platform = "windows")

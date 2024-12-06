@@ -31,7 +31,8 @@ Gb_SJ(d30, dm, d90, J, Rs, um, B,tcrit=0.05,rho_s=2650,s=2.65)
 Gb sediment transport rate [kg/s]
 }
 \description{
-Calculates the sediment transport cappacity,i.e. solids-volume per time unity. The forumla is valid for slopes between 0.005 and 0.2.
+Calculates the sediment transport cappacity,i.e. solids-volume,
+per time unity. The forumla is valid for slopes between 0.005 and 0.2.
 }
 \examples{
 d30 <- 0.05

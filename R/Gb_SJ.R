@@ -1,5 +1,6 @@
 #' @title Sediment transport cappacity according to Smart and Jaeggi
-#' @description Calculates the sediment transport cappacity,i.e. solids-volume per time unity. The forumla is valid for slopes between 0.005 and 0.2.
+#' @description Calculates the sediment transport cappacity,i.e. solids-volume,
+#' per time unity. The forumla is valid for slopes between 0.005 and 0.2.
 #' @usage Gb_SJ(d30, dm, d90, J, Rs, um, B,tcrit=0.05,rho_s=2650,s=2.65)
 #' @param d30 d30 of grain size distribution [m]
 #' @param dm dm of grain size distribution [m]
@@ -32,7 +33,8 @@
 
 Gb_SJ <- function(d30,dm,d90,J,Rs,um,B,tcrit=0.05,rho_s=2650,s=2.65){
 
-  Gb <- max(0, 4*rho_s/(s-1) * (d90/d30)^0.2 * J^1.6 *Rs* um * B * (1-tcrit*(s-1)*dm/(Rs*J)))
+  Gb <- max(0, 4*rho_s/(s-1) * (d90/d30)^0.2 * J^1.6 *Rs* um * B *
+              (1-tcrit*(s-1)*dm/(Rs*J)))
 
   return(Gb)
 

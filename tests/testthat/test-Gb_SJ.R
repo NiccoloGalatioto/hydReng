@@ -1,7 +1,5 @@
-
-
 #------------------------------------------------------------------------------
-## test Bedload transport according to Smart and Jaeggi
+## Test Bedload transport according to Smart and Jaeggi
 #------------------------------------------------------------------------------
 
 test_that("Gb_SJ calculates correctly", {
@@ -13,9 +11,9 @@ test_that("Gb_SJ calculates correctly", {
   um <- 2.6
   Rs <- 0.8
 
-  # Example from "Abschaetzung der mittleren jährlichen Geschiebelieferung,in Vorfluter", S. 57
+  # Example from "Abschaetzung der mittleren jährlichen Geschiebelieferung, in Vorfluter", S. 57
   result <- Gb_SJ(d30 = d30, dm = dm, d90 = d90, J = J, Rs = Rs, um = um, B = B,
-                  tcrit = 0.023)
+                  t_crit = 0.023)
+
   expect_equal(result, 84.8576, tolerance = 0.01)
 })
-

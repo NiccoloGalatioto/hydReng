@@ -4,5 +4,5 @@
 ^cran-comments\.md$
 ^.git
 ^.github
-^.Test_Package.R
+^Test_Package.R
 ^.gitignore

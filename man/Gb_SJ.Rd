@@ -2,37 +2,37 @@
 % Please edit documentation in R/Gb_SJ.R
 \name{Gb_SJ}
 \alias{Gb_SJ}
-\title{Sediment transport cappacity according to Smart and Jaeggi}
+\title{Sediment transport capacity according to Smart and Jaeggi}
 \usage{
-Gb_SJ(d30, dm, d90, J, Rs, um, B,tcrit=0.05,rho_s=2650,s=2.65)
+Gb_SJ(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650, s_value = 2.65)
 }
 \arguments{
-\item{d30}{d30 of grain size distribution [m]}
+\item{d30}{Grain size distribution parameter (d30) [m]}
 
-\item{dm}{dm of grain size distribution [m]}
+\item{dm}{Median grain size (dm) [m]}
 
-\item{d90}{d90 of grain size distribution [m]}
+\item{d90}{Grain size distribution parameter (d90) [m]}
 
-\item{J}{slope [-]}
+\item{J}{Slope of the bed [-]}
 
-\item{Rs}{hydraulic radius [m]}
+\item{Rs}{Hydraulic radius [m]}
 
-\item{um}{mean flow velocity [m/s]}
+\item{um}{Mean flow velocity [m/s]}
 
-\item{B}{bottom width [m]}
+\item{B}{Bottom width [m]}
 
-\item{tcrit}{critical shear stress}
+\item{t_crit}{Critical shear stress [-]}
 
-\item{rho_s}{density of beadload}
+\item{rho_s}{Density of bedload material [kg/m³]}
 
-\item{s}{density}
+\item{s_value}{Density of sediment [-]}
 }
 \value{
-Gb sediment transport rate [kg/s]
+Gb Sediment transport rate [kg/s]
 }
 \description{
-Calculates the sediment transport cappacity,i.e. solids-volume,
-per time unity. The forumla is valid for slopes between 0.005 and 0.2.
+Calculates the sediment transport capacity, i.e. solids volume,
+per time unit. The formula is valid for slopes between 0.005 and 0.2.
 }
 \examples{
 d30 <- 0.05
@@ -43,5 +43,5 @@ Rs <- 1
 um <- 2
 B <- 3
 
-Gb_SJ(d30=0.05, dm=0.10, d90=0.2, J=0.03, Rs=1, um=2, B=5)
+Gb_SJ(d30 = 0.05, dm = 0.10, d90 = 0.2, J = 0.03, Rs = 1, um = 2, B = 5)
 }

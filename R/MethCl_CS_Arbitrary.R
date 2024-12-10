@@ -131,6 +131,10 @@ setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
     zh <- min(z(object)) + h[jj]  # Level of h [m a.s.l.]
     Aii <- numeric(n_segments)    # Vector for areas
 
+    if(zh>max(z(object))){
+      warning("h exceeds maximum dike level")
+    }
+
     for (ii in seq_len(n_segments)) {
       if (z(object)[ii] < zh & z(object)[ii + 1] < zh) {
         # Both points below water level
@@ -208,6 +212,10 @@ setMethod("wetted_perimeter", "CSarbitrary", function(object, h, ret = "P") {
   for (jj in seq_along(h)) {
     zh <- min(z(object)) + h[jj]  # Level of h [m a.s.l.]
     Pii <- numeric(n_segments)    # Vector for hydraulic radius
+
+    if(zh>max(z(object))){
+      warning("h exceeds maximum dike level")
+    }
 
     for (ii in seq_len(n_segments)) {
       if (z(object)[ii] < zh & z(object)[ii + 1] < zh) {

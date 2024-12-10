@@ -47,4 +47,7 @@ test_that("Test Arbitrary Bollrich3_6_1_7", {
   expect_equal(wetted_area(csAr_Bollrich3_6_1_7, h = 2), 11.92, tolerance = 0.001)
   expect_equal(wetted_perimeter(csAr_Bollrich3_6_1_7, h = 2), 10.02,
                tolerance = 0.001)
+  expect_warning(wetted_area(csAr_Bollrich3_6_1_7, h = 4.5))
+  expect_warning(wetted_perimeter(csAr_Bollrich3_6_1_7, h = 4.5))
+
 })

@@ -11,8 +11,8 @@ library(spelling)
 devtools::load_all()
 devtools::document()    # Regenerate documentation
 devtools::test()        # Run package tests
+devtools::run_examples()
 
-devtools::build()
 
 
 # Disable system clock check (for CRAN checks)

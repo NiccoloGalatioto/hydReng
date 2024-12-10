@@ -5,46 +5,49 @@ setClassUnion("numeric_or_null", c("numeric", "NULL"))
 #' @title CSarbitrary Class
 #' @name CSarbitrary
 #' @aliases CSarbitrary-class
-#' @description Defines class cross-section with arbitrary geometry for hydraulic calculations.
+#' @description Defines a cross-section class with arbitrary geometry for
+#'   hydraulic calculations.
 #' @slot x A numeric vector of x-coordinates [m].
 #' @slot z A numeric vector of z-coordinates [m].
-#' @slot xb_l X-coordinate of left bank bottom [m].
-#' @slot xb_r X-coordinate of right bank bottom [m].
-#' @slot kSt_B Roughness of channel bed [m^(1/3)/s].
-#' @slot kSt_l Roughness of left bank (Strickler) [m^(1/3)/s].
-#' @slot kSt_r Roughness of right bank (Strickler) [m^(1/3)/s].
+#' @slot xb_l X-coordinate of the left bank bottom [m].
+#' @slot xb_r X-coordinate of the right bank bottom [m].
+#' @slot kSt_B Roughness of the channel bed [m^(1/3)/s].
+#' @slot kSt_l Roughness of the left bank (Strickler) [m^(1/3)/s].
+#' @slot kSt_r Roughness of the right bank (Strickler) [m^(1/3)/s].
 #' @importFrom methods setClass new validObject
 #' @examples
 #' # Define sample cross-section data
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
-#' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35, kSt_l = 45, kSt_r = 45)
+#' cs <- new("CSarbitrary", x = x, z = z, xb_l = 4, xb_r = 9,
+#'           kSt_B = 35, kSt_l = 45, kSt_r = 45)
 #' @export
 
-
-CSarbitrary <- setClass("CSarbitrary",
-                        slots = c(
-                          x = "numeric",
-                          z = "numeric",
-                          xb_l = "numeric_or_null",
-                          xb_r = "numeric_or_null",
-                          kSt_B = "numeric_or_null",
-                          kSt_l = "numeric_or_null",
-                          kSt_r = "numeric_or_null"
-                        ),
-                        prototype = list(
-                          kSt_B = NULL,
-                          xb_l = NULL,
-                          xb_r = NULL,
-                          kSt_l = NULL,
-                          kSt_r = NULL
-                        )
+CSarbitrary <- setClass(
+  "CSarbitrary",
+  slots = c(
+    x = "numeric",
+    z = "numeric",
+    xb_l = "numeric_or_null",
+    xb_r = "numeric_or_null",
+    kSt_B = "numeric_or_null",
+    kSt_l = "numeric_or_null",
+    kSt_r = "numeric_or_null"
+  ),
+  prototype = list(
+    kSt_B = NULL,
+    xb_l = NULL,
+    xb_r = NULL,
+    kSt_l = NULL,
+    kSt_r = NULL
+  )
 )
 
 # Set Generics
-#--------------------------------------------------------------------
-setGeneric("return_valid_object", function(object, value)
-  standardGeneric("return_valid_object"))
+# --------------------------------------------------------------------
+setGeneric("return_valid_object", function(object, value) {
+  standardGeneric("return_valid_object")
+})
 
 setGeneric("x", function(object, ...) standardGeneric("x"))
 setGeneric("x<-", function(object, value) standardGeneric("x<-"))
@@ -61,6 +64,11 @@ setGeneric("kSt_l<-", function(object, value) standardGeneric("kSt_l<-"))
 setGeneric("kSt_r", function(object, ...) standardGeneric("kSt_r"))
 setGeneric("kSt_r<-", function(object, value) standardGeneric("kSt_r<-"))
 
-setGeneric("wetted_area", function(object, h, ret="A") standardGeneric("wetted_area"))
-setGeneric("wetted_perimeter", function(object, ...)
-  standardGeneric("wetted_perimeter"))
+setGeneric(
+  "wetted_area",
+  function(object, h, ret = "A") standardGeneric("wetted_area")
+)
+setGeneric(
+  "wetted_perimeter",
+  function(object, h, ret= "P") standardGeneric("wetted_perimeter")
+)

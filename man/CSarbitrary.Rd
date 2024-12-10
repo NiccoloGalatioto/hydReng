@@ -6,29 +6,31 @@
 \alias{CSarbitrary-class}
 \title{CSarbitrary Class}
 \description{
-Represents a cross-section with arbitrary geometry for calculating wetted areas.
+Defines a cross-section class with arbitrary geometry for
+  hydraulic calculations.
 }
 \section{Slots}{
 
 \describe{
-\item{\code{x}}{A numeric vector of x-coordinates.}
+\item{\code{x}}{A numeric vector of x-coordinates [m].}
 
-\item{\code{z}}{A numeric vector of z-coordinates.}
+\item{\code{z}}{A numeric vector of z-coordinates [m].}
 
-\item{\code{xb_l}}{A numeric or NULL value representing the left boundary.}
+\item{\code{xb_l}}{X-coordinate of the left bank bottom [m].}
 
-\item{\code{xb_r}}{A numeric or NULL value representing the right boundary.}
+\item{\code{xb_r}}{X-coordinate of the right bank bottom [m].}
 
-\item{\code{kSt_B}}{A numeric or NULL value for the base slope.}
+\item{\code{kSt_B}}{Roughness of the channel bed [m^(1/3)/s].}
 
-\item{\code{kSt_l}}{A numeric or NULL value for the left slope.}
+\item{\code{kSt_l}}{Roughness of the left bank (Strickler) [m^(1/3)/s].}
 
-\item{\code{kSt_r}}{A numeric or NULL value for the right slope.}
+\item{\code{kSt_r}}{Roughness of the right bank (Strickler) [m^(1/3)/s].}
 }}
 
 \examples{
 # Define sample cross-section data
 x <- c(0, 4, 9, 13)
 z <- c(2, 0, 0, 2)
-cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35, kSt_l = 45, kSt_r = 45)
+cs <- new("CSarbitrary", x = x, z = z, xb_l = 4, xb_r = 9,
+          kSt_B = 35, kSt_l = 45, kSt_r = 45)
 }

@@ -8,23 +8,27 @@
 wetted_area(object, h, ret = "A")
 }
 \arguments{
-\item{object}{An object of class `CSarbitrary`.}
+\item{object}{An object of class CSarbitrary or CScircle.}
 
 \item{h}{A numeric vector of water levels [m].}
 
-\item{ret}{A character string; if `"A"`, returns total wetted area. If `"Aii"`, returns area by segment.}
+\item{ret}{A character string; if `A`, returns total wetted area. If `Aii`,
+returns wetted area by segment.}
 }
 \value{
-A numeric vector or matrix of wetted areas based on the `ret` argument.
+A numeric vector or matrix of wetted areas based on the `ret`
+    argument.
 }
 \description{
-Calculates the wetted area of a `CSarbitrary` object for given water levels.
+Calculates the wetted area of a CSarbitrary or CScircle
+    object for given water levels.
 }
 \examples{
 # Define sample cross-section data
 x <- c(0, 4, 9, 13)
 z <- c(2, 0, 0, 2)
-cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35, kSt_l = 45, kSt_r = 45)
+cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
+                  kSt_l = 45, kSt_r = 45)
 
 # Calculate total wetted area at water levels 1 m and 2 m
 h <- c(1, 2)

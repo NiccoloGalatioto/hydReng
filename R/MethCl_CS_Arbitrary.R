@@ -38,21 +38,21 @@ setValidity("CSarbitrary", function(object) {
       msg <- c(msg, "xb_r is not equal to any x")
     }
   }
-  #Check if x is unique
-  if (any(duplicated(x(object)))) {
-      valid <- FALSE
-      msg <- c(msg, "x values must be unique")
-    }
 
+  # Check if x is unique
+  if (any(duplicated(x(object)))) {
+    valid <- FALSE
+    msg <- c(msg, "x values must be unique")
+  }
 
   # Return validation result
-  if (valid == TRUE) TRUE else msg
+  if (valid) TRUE else msg
 })
 
 # Replacement methods
 #------------
 setMethod("return_valid_object", "CSarbitrary", function(object) {
-  if (validObject(object) == TRUE) return(object)
+  if (validObject(object)) return(object)
 })
 
 setMethod("x<-", "CSarbitrary", function(object, value) {
@@ -95,19 +95,23 @@ setMethod("kSt_r<-", "CSarbitrary", function(object, value) {
 #' @title Calculates Wetted Area
 #' @name wetted_area
 #' @aliases wetted_area,CSarbitrary-method
-#' @description Calculates the wetted area of a `CSarbitrary` object for given water levels.
+#' @description Calculates the wetted area of a CSarbitrary or CScircle
+#'     object for given water levels.
 #' @usage wetted_area(object, h, ret = "A")
-#' @param object An object of class `CSarbitrary`.
+#' @param object An object of class CSarbitrary or CScircle.
 #' @param h A numeric vector of water levels [m].
-#' @param ret A character string; if `"A"`, returns total wetted area. If `"Aii"`, returns area by segment.
-#' @return A numeric vector or matrix of wetted areas based on the `ret` argument.
+#' @param ret A character string; if `A`, returns total wetted area. If `Aii`,
+#'     returns wetted area by segment.
+#' @return A numeric vector or matrix of wetted areas based on the `ret`
+#'     argument.
 #' @importFrom methods new validObject
 #' @importFrom stats approx
 #' @examples
 #' # Define sample cross-section data
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
-#' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35, kSt_l = 45, kSt_r = 45)
+#' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
+#'                   kSt_l = 45, kSt_r = 45)
 #'
 #' # Calculate total wetted area at water levels 1 m and 2 m
 #' h <- c(1, 2)
@@ -116,9 +120,6 @@ setMethod("kSt_r<-", "CSarbitrary", function(object, value) {
 #' # Calculate wetted area for each segment at the same water levels
 #' wetted_area(cs, h, ret = "Aii")
 #' @export
-
-
-
 setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
   n_segments <- length(x(object)) - 1  # Number of segments
 
@@ -162,6 +163,41 @@ setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
 })
 
 
+# Wetted Perimeter
+#---------
+#' @title Calculates Wetted Perimeter
+#' @name wetted_perimeter
+#' @aliases wetted_perimeter,CSarbitrary-method
+#' @description Calculates the wetted perimeter of a CSarbitrary or CScircle
+#'     object for given water levels.
+#' @usage wetted_perimeter(object, h, ret = "P")
+#' @param object An object of class CSarbitrary or CScircle.
+#' @param h A numeric vector of water levels [m].
+#' @param ret A character string; if `P`, returns total wetted perimeter. If `Pii`,
+#'     returns wetted perimeter by segment.
+#' @return A numeric vector or matrix of wetted perimeter based on the `ret`
+#'     argument.
+#' @importFrom methods new validObject
+#' @importFrom stats approx
+#' @examples
+#' # Define sample cross-section data
+#' x <- c(0, 4, 9, 13)
+#' z <- c(2, 0, 0, 2)
+#' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
+#'                   kSt_l = 45, kSt_r = 45)
+#'
+#' # Calculate total wetted perimeter at water levels 1 m and 2 m
+#' h <- c(1, 2)
+#' wetted_perimeter(cs, h, ret = "P")
+#'
+#' # Calculate wetted perimeter for each segment at the same water levels
+#' wetted_perimeter(cs, h, ret = "Pii")
+#' @export
+
+
+
+# Wetted Perimeter
+#---------
 setMethod("wetted_perimeter", "CSarbitrary", function(object, h, ret = "P") {
   n_segments <- length(x(object)) - 1  # Number of segments
 

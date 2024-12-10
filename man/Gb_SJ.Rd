@@ -4,7 +4,8 @@
 \alias{Gb_SJ}
 \title{Sediment transport capacity according to Smart and Jaeggi}
 \usage{
-Gb_SJ(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650, s_value = 2.65)
+Gb_SJ(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650,
+s_value = 2.65)
 }
 \arguments{
 \item{d30}{Grain size distribution parameter (d30) [m]}
@@ -21,18 +22,20 @@ Gb_SJ(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650, s_value = 2.65)
 
 \item{B}{Bottom width [m]}
 
-\item{t_crit}{Critical shear stress [-]}
+\item{t_crit}{Critical shear stress [-] (default: 0.05)}
 
-\item{rho_s}{Density of bedload material [kg/m³]}
+\item{rho_s}{Density of bedload material [kg/m³] (default: 2650)}
 
-\item{s_value}{Density of sediment [-]}
+\item{s_value}{Relative solid density [-] (default: 2.65)}
 }
 \value{
-Gb Sediment transport rate [kg/s]
+Gb_SJ returns the following variable:
+\item{Gb}{Sediment transport rate [kg/s]}
 }
 \description{
-Calculates the sediment transport capacity, i.e. solids volume,
-per time unit. The formula is valid for slopes between 0.005 and 0.2.
+Calculates the sediment transport capacity based on the formula by Smart and
+Jaeggi (1983). This formula
+is valid for slopes between 0.005 and 0.2.
 }
 \examples{
 d30 <- 0.05
@@ -44,4 +47,10 @@ um <- 2
 B <- 3
 
 Gb_SJ(d30 = 0.05, dm = 0.10, d90 = 0.2, J = 0.03, Rs = 1, um = 2, B = 5)
+
+}
+\references{
+Smart, G. M., & Jäggi, M. N. R. (1983). Sediment transport in steilen
+Gerinnen. Mitteilungen der Versuchsanstalt für Wasserbau, Hydrologie und
+Glaziologie der ETH Zürich, 64, Zürich.
 }

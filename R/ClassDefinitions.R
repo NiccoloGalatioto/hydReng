@@ -44,7 +44,7 @@ CSarbitrary <- setClass(
 )
 
 # Set Generics
-# --------------------------------------------------------------------
+#------------------------------------------------------------------------------
 setGeneric("return_valid_object", function(object, value) {
   standardGeneric("return_valid_object")
 })
@@ -72,3 +72,18 @@ setGeneric(
   "wetted_perimeter",
   function(object, h, ret= "P") standardGeneric("wetted_perimeter")
 )
+setGeneric("mean_roughness", function(object, h)
+  standardGeneric("mean_roughness"))
+setGeneric("flow_velocity", function(object,h, J, method = "Strickler")
+  standardGeneric("flow_velocity"))
+setGeneric("uniform_flow_depth", function(object,  Q, J, method = "Strickler",
+                                          ret = "all", plot = FALSE)
+  standardGeneric("uniform_flow_depth"))
+setGeneric("WL_coords", function(object, ...) standardGeneric("WL_coords"))
+setGeneric("EL_coords", function(object, ...) standardGeneric("EL_coords"))
+setGeneric("froude_number", function(object, ...)
+  standardGeneric("froude_number"))
+setGeneric("uniform_flow_discharge",
+           function(object, h, J, method = "Strickler", ret = "all",
+                    plot = FALSE) standardGeneric("uniform_flow_discharge"))
+

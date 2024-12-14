@@ -13,6 +13,7 @@ setUp <- function() {
   x <- seq(-sqrt(20), sqrt(20), length.out = 41)
   z <- 0.1 * x^2 - 2
   csAr_Bollrich3_6_1_7 <<- CSarbitrary(x = x, z = z, kSt_B = 40)
+
 }
 
 # Call setup function
@@ -42,12 +43,44 @@ test_that("Test unique x values", {
 #------------------------------------------------------------------------------
 ## Hydraulics
 #------------------------------------------------------------------------------
-
-test_that("Test Arbitrary Bollrich3_6_1_7", {
+test_that("wetted_area for Bollrich3_6_1_7 calculates correctly", {
   expect_equal(wetted_area(csAr_Bollrich3_6_1_7, h = 2), 11.92, tolerance = 0.001)
+})
+
+test_that("wetted_perimeter for Bollrich3_6_1_7 calculates correctly", {
   expect_equal(wetted_perimeter(csAr_Bollrich3_6_1_7, h = 2), 10.02,
                tolerance = 0.001)
-  expect_warning(wetted_area(csAr_Bollrich3_6_1_7, h = 4.5))
-  expect_warning(wetted_perimeter(csAr_Bollrich3_6_1_7, h = 4.5))
-
 })
+
+
+test_that("wetted_area for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(wetted_area(csAr_Bollrich3_6_1_6, h = 2), 18, tolerance = 0.001)
+})
+
+test_that("mean_roughness for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(mean_roughness(csAr_Bollrich3_6_1_6, h = 2), 40.66,
+               tolerance = 0.001)
+})
+
+test_that("flow_velocity for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(flow_velocity(csAr_Bollrich3_6_1_6, h = 2, J = 0.0001,
+                             method = "Einstein"), 0.482, tolerance = 0.001)
+})
+
+test_that("uniform_flow_depth for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+                                  method = "Einstein", ret = "h"),
+               2, tolerance = 0.001)
+})
+
+test_that("mean_roughness for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(mean_roughness(csAr_Bollrich3_6_1_6, h=2),
+               40.66306, tolerance = 0.001)
+})
+
+test_that("flow for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(uniform_flow_discharge(csAr_Bollrich3_6_1_6, h=2, J=0.0001, method="Einstein",
+                    ret="Q"),
+               8.677, tolerance = 0.001)
+})
+

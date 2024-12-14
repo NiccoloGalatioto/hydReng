@@ -14,7 +14,6 @@ devtools::test()        # Run package tests
 devtools::run_examples()
 
 
-
 # Disable system clock check (for CRAN checks)
 Sys.setenv('_R_CHECK_SYSTEM_CLOCK_' = 0)
 
@@ -26,7 +25,7 @@ devtools::check()
 # Run good practice checks
 detach("package:hydReng", unload = TRUE)
 goodpractice::gp()
-
+tools::showNonASCIIfile("C:/Users/NICCOLO/Documents/R/hydReng/R/MethCl_CS_Arbitrary.R")
 
 #Run spell check
 spell_check_package()

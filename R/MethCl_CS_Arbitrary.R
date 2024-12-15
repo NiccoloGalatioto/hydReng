@@ -751,3 +751,143 @@ setMethod(
     }
   }
 )
+
+
+
+# Uniform flow Qmax
+#------------------------------------------------------------------------------
+#' @title Uniform Flow Qmax
+#' @name uniform_flow_Qmax
+#' @aliases uniform_flow_Qmax,CSarbitrary-method
+#' @description Calculates the maximum uniform flow discharge of a `CSarbitrary`
+#' object for a given bottom slope.
+#' @usage uniform_flow_Qmax(object, J, method = "Strickler", ret = "all", plot = FALSE)
+#' @param object A `CSarbitrary` object.
+#' @param J Bottom slope [-].
+#' @param method Method to calculate roughness. `method = "Strickler"` considers
+#' equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.
+#' @param ret Defines the result returned by the function.
+#' @param plot Logical; if `TRUE`, plots the results.
+#' @return A list containing the following hydraulic variables:
+#' \describe{
+#'   \item{Qmax}{Maximum discharge [m3/s].}
+#'   \item{hmax}{Maximum flow depth [m].}
+#'   \item{v}{Flow velocity [m/s].}
+#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
+#'   \item{A}{Wetted area [m2].}
+#' }
+#' @examples
+#' x <- c(0, 4, 9, 13)
+#' z <- c(2, 0, 0, 2)
+#' cs <- CSarbitrary(
+#'   x = x, z = z, xb_l = 4, xb_r = 9,
+#'   kSt_B = 35, kSt_l = 45, kSt_r = 45
+#' )
+#' uniform_flow_Qmax(cs, J=0.0001, method="Einstein",ret="Qmax")
+#' uniform_flow_Qmax(cs, J=0.0001, method="Einstein",plot=TRUE)
+#' @export
+#'
+
+
+setMethod(
+  "uniform_flow_Qmax", "CSarbitrary",
+  function(object, J, method = "Strickler", ret = "all", plot = FALSE) {
+
+    # Check if xb_l or xb_r is missing
+    if (!is.numeric(xb_l(object))) {
+      warning("xb_l is missing")
+      return(NULL)
+    }
+    if (!is.numeric(xb_r(object))) {
+      warning("xb_r is missing")
+      return(NULL)
+    }
+
+    # Calculate maximal possible level
+    zmax_l <- max(z(object)[xb_l(object) >= x(object)], na.rm = TRUE)
+    zmax_r <- max(z(object)[xb_r(object) <= x(object)], na.rm = TRUE)
+    zmax <- min(zmax_l, zmax_r)
+    hmax <- zmax - min(z(object), na.rm = TRUE)
+
+    # Calculate flow and velocity for maximal level
+    Qmax <- uniform_flow_discharge(object, hmax, J = J, method = method, ret = "Q")
+    v <- flow_velocity(object, h = hmax, J = J, method = method)
+
+    # Plotting
+    if (plot==TRUE) {
+      suppressWarnings(try(dev.off(), silent = TRUE))
+
+      ylim <- if ((min(z(object)) + hmax + v^2 / (2 * 9.81)) < max(z(object))) {
+        c(0, max(z(object)))
+      } else {
+        c(0, min(z(object)) + hmax + v^2 / (2 * 9.81))
+      }
+
+      plot(
+        x = x(object), y = z(object), type = "l",
+        xlab = "x [m]", ylab = "z [m]",
+        main = "Qmax", cex.main = 0.8, asp = 1,
+        ylim = ylim
+        )
+
+      # Water level and energy line
+      z_talweg <- min(z(object), na.rm = TRUE)
+      z_wsp <- z_talweg + hmax
+      lines(
+        x = c(
+          WL_coords(object, h = hmax, v = v)$pl$y,
+          WL_coords(object, h = hmax, v = v)$pr$y
+        ),
+        y = rep(z_wsp, 2), col = "blue"
+      )
+      polygon(
+        x = WL_coords(object, h = hmax, v = v)$pb,
+        y = WL_coords(object, h = hmax, v = v)$pz,
+        col = rgb(0.68, 0.85, 0.9, 0.3), border = NA
+      )
+      z_el <- z_wsp + v^2 / (2 * 9.81)
+      lines(
+        x = c(
+          EL_coords(object, h = hmax, v = v)$pl$y,
+          EL_coords(object, h = hmax, v = v)$pr$y
+        ),
+        y = rep(z_el, 2), col = "red", lty = 4
+      )
+
+      legend(
+        "bottomleft", inset = c(0, 1), xpd = TRUE,
+        legend = c(
+          "CS", "water level", "energy line", "bank bottom",
+          paste("Q =", round(Qmax, 2), "m3/s"),
+          paste("J =", J),
+          paste("v =", round(v, 2), "m/s"),
+          paste("F =", round(froude_number(object, v = v, h = hmax), 2))
+        ),
+        lty = c(1, 1, 2, NA, NA, NA, NA, NA), pch = c(NA, NA, NA, 6, NA, NA),
+        col = c("black", "blue", "red", "black", NA, NA, NA),
+        bty = "n", cex = 0.8, ncol = 2
+      )
+
+      points(
+        x = c(xb_l(object), xb_r(object)),
+        y = c(z(object)[x(object) %in% xb_l(object)],
+              z(object)[x(object) %in% xb_r(object)]),
+        pch = 6
+      )
+    }
+    # Return values
+    switch(
+      ret,
+      "all" = list(
+        Qmax = Qmax, hmax = hmax, v = v,
+        A = wetted_area(object, h = hmax),
+        kSt_m = if (method == "Einstein") mean_roughness(object, h = hmax)
+      ),
+      "Qmax" = Qmax,
+      "hmax" = hmax,
+      "v" = flow_velocity(object, h = hmax, J = J, method = method)
+    )
+  }
+)
+
+

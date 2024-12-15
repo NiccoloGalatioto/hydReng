@@ -83,7 +83,11 @@ setGeneric("WL_coords", function(object, ...) standardGeneric("WL_coords"))
 setGeneric("EL_coords", function(object, ...) standardGeneric("EL_coords"))
 setGeneric("froude_number", function(object, ...)
   standardGeneric("froude_number"))
-setGeneric("uniform_flow_discharge",
-           function(object, h, J, method = "Strickler", ret = "all",
-                    plot = FALSE) standardGeneric("uniform_flow_discharge"))
+setGeneric("uniform_flow_discharge", function(object, h, J,
+                                              method = "Strickler", ret = "all",
+                                              plot = FALSE)
+             standardGeneric("uniform_flow_discharge"))
+setGeneric("uniform_flow_Qmax", function(object, J, method= "Strickler",
+                                         ret = "all", plot = FALSE)
+  standardGeneric("uniform_flow_Qmax"))
 

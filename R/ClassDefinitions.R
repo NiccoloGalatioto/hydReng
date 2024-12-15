@@ -90,4 +90,9 @@ setGeneric("uniform_flow_discharge", function(object, h, J,
 setGeneric("uniform_flow_Qmax", function(object, J, method= "Strickler",
                                          ret = "all", plot = FALSE)
   standardGeneric("uniform_flow_Qmax"))
+setGeneric("uniform_flow_Qmax_freeboard", function(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
+                                                   fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
+                                                   ret = "all", plot = FALSE)
+  standardGeneric("uniform_flow_Qmax_freeboard"))
+
 

@@ -890,4 +890,144 @@ setMethod(
   }
 )
 
+#------------------------------------------------------------------------------
+# uniform_flow_Qmax_freeboard
+#------------------------------------------------------------------------------
+#' @title uniform_flow_Qmax_freeboard
+#' @name uniform_flow_Qmax_freeboard
+#' @description Calculates the maximum flow for given freeboard conditions,
+#' including optional plotting of results.
+#' @aliases uniform_flow_Qmax_freeboard,CSarbitrary-method
+#' @param object A CSarbitrary object.
+#' @param J Bottom slope [-].
+#' @param type Type of freeboard calculation. Defaults to "KOHS".
+#' @param sigma_wz Uncertainty in bed elevation (morphodynamics) [m].
+#' @param fw Logical; considers freeboard due to uncertainty in water elevation.
+#'   If `TRUE`, calculates according to KOHS; if `FALSE`, sets `fw = 0`.
+#' @param fv Logical; considers freeboard due to waves. If `TRUE`, calculates
+#'   according to KOHS; if `FALSE`, sets `fv = 0`.
+#' @param ft Freeboard due to driftwood based on KOHS (2013) [m].
+#' @param fe Fixed freeboard value to override calculations [m].
+#' @param fe_min Minimum freeboard [m].
+#' @param fe_max Maximum freeboard [m].
+#' @param method Flow calculation method, e.g., "Strickler" or "Einstein".
+#' @param ret Definition of the result returned by the function ("all", "Qmax",
+#'   "hmax", "fe", or "v").
+#' @param plot Logical; whether to plot the results.
+#' @return Depending on `ret`, returns flow, water level, velocity, or all
+#'   details.
+#' @references KOHS (2013). Freibord bei Hochwasserschutzprojekten und
+#'   Gefahrenbeurteilungen - Empfehlungen der Kommission Hochwasserschutz KOHS.
+#'   Wasser Energie Luft 105(1): 43-53.
+#' @examples
+#' # Cross section
+#' x <- c(-0.85, 3, 15, 18.85)
+#' z <- c(3.85, 0, 0, 3.85)
+#' cs<- CSarbitrary(x = x, z = z, xb_l = 3, xb_r = 15,
+#'                                       kSt_B = 45)
+#'
+#' # Channel
+#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = FALSE, J = 2.2 * 10^-2)
+#' # Dam
+#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, J = 2.2 * 10^-2)
+#' # Bridge
+#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
+#'            J = 2.2 * 10^-2)
+#'
+#' # Sensitivity analysis for slope
+#' J <- seq(1, 3, 0.1) * 10^-2
+#' Q <- sapply(J, function(J) {
+#'   uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
+#'              J = J)$Qmax
+#' })
+#' plot(J, Q, type = "l")
+#' @export
+#'
+#'
+setMethod(
+  "uniform_flow_Qmax_freeboard",
+  "CSarbitrary",
+  function(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
+           fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
+           ret = "all", plot = FALSE) {
+
+    # Check and validate inputs
+    if (!is.numeric(xb_l(object))) {
+      warning("Left bank xb_l is missing.")
+      return(NULL)
+    }
+    if (!is.numeric(xb_r(object))) {
+      warning("Right bank xb_r is missing.")
+      return(NULL)
+    }
+
+    # Get maximal levee levels
+    zmax_l <- max(z(object)[xb_l(object) >= x(object)], na.rm = TRUE)
+    zmax_r <- max(z(object)[xb_r(object) <= x(object)], na.rm = TRUE)
+    zmax <- min(zmax_l, zmax_r, na.rm = TRUE)
+
+    # Constant freeboard
+    if (type == "const_fe") {
+      if (!is.numeric(fe)) {
+        warning("Fixed freeboard 'fe' is not defined.")
+        return(NULL)
+      }
+      hmax <- zmax - fe - min(z(object))
+
+    } else if (type == "KOHS") {
+      # Without bridge
+      calc_freeboard <- function(h, zmax) {
+        v <- flow_velocity(object, h = h, J = J, method = method)
+        fe <- freeboard(v, h, sigma_wz, fw, fv, ft, min = fe_min, max = fe_max)
+        hmax <- zmax - fe - min(z(object))
+        h - hmax
+      }
+      hmax_levee <- uniroot(
+        calc_freeboard, interval = c(10^-5, 1e4), zmax = zmax, check.conv = TRUE
+      )$root
+      fe_levee <- zmax - min(z(object)) - hmax_levee
+
+      hmax <- hmax_levee
+      fe <- fe_levee
+      fe_type <- "levee"
+
+
+    } else {
+      warning("Unknown 'type' parameter.")
+      return(NULL)
+    }
+
+    # Calculate flow and velocity
+    Qmax <- uniform_flow_discharge(object, hmax, J = J, method = method, ret = "Q")
+    v <- flow_velocity(object, h = hmax, J = J, method = method)
+
+    # Optional plot
+    if (plot) {
+      plot(x(object), z(object), type = "l", xlab = "x [m]", ylab = "z [m]",
+           main = "Qfreeboard", ylim = c(0, max(c(z(object), hmax + v^2 / 19.62))))
+      lines(x = c(WL_coords(object, h = hmax, v = v)$pl$y,
+                  WL_coords(object, h = hmax, v = v)$pr$y),
+            y = rep(min(z(object)) + hmax, 2), col = "blue")
+        }
+
+    # Prepare outputs
+    if (ret == "all") {
+      result <- list(
+        Qmax = Qmax,
+        hmax = hmax,
+        fe = fe,
+        v = v,
+        A = wetted_area(object, h = hmax)
+      )
+      if (method == "Einstein") {
+        result$kSt_m <- mean_roughness(object, h = hmax)
+      }
+      if (type == "KOHS") {
+        result$fe_type <- fe_type
+      }
+      return(result)
+    }
+    switch(ret, Qmax = Qmax, hmax = hmax, fe = fe, v = v)
+  }
+)
 

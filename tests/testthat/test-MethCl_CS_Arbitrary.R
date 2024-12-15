@@ -14,7 +14,16 @@ setUp <- function() {
   z <- 0.1 * x^2 - 2
   csAr_Bollrich3_6_1_7 <<- CSarbitrary(x = x, z = z, kSt_B = 40)
 
+  x <- c(-0.85, 3, 15, 18.85)
+  z <- c(3.85, 0, 0, 3.85)
+
+  # Initialize the CSarbitrary object
+  csAr_KOHS_Schaechen <<- CSarbitrary(
+    x = x, z = z, xb_l = 3, xb_r = 15,
+    kSt_B = 45
+  )
 }
+
 
 # Call setup function
 setUp()
@@ -107,5 +116,30 @@ test_that("uniform_flow_Qmax for Bollrich3_6_1_6 calculates correctly", {
                2, tolerance = 0.001)
   expect_equal(uniform_flow_Qmax(csAr_Bollrich3_6_1_6, J=0.0001,
                                  method="Einstein")$A,18, tolerance = 0.001)
+
+})
+
+
+
+test_that("uniform_flow_Qmax_freeboard calculations are accurate", {
+  result_uniform_flow_Qmax_freeboard <- uniform_flow_Qmax_freeboard(
+    csAr_KOHS_Schaechen,
+    J = 2.2e-2,
+    type = "KOHS",
+    sigma_wz = 0,
+    fv = TRUE,
+    ft = 0.5,
+    fe = NULL,
+    method = "Strickler"
+  )
+  expect_equal(result_uniform_flow_Qmax_freeboard$fe, 2.57, tolerance = 0.01,
+               label = "uniform_flow_Qmax_freeboard 'fe' value is within tolerance")
+  expect_equal(result_uniform_flow_Qmax_freeboard$v, 7.1, tolerance = 0.01,
+               label = "uniform_flow_Qmax_freeboard 'v' value is within tolerance")
+  expect_equal(result_uniform_flow_Qmax_freeboard$Qmax, 120, tolerance = 0.01,
+               label = "uniform_flow_Qmax_freeboard 'Qmax' value is within tolerance")
+  expect_equal(result_uniform_flow_Qmax_freeboard$hmax, 1.27, tolerance = 0.01,
+               label = "uniform_flow_Qmax_freeboard 'hmax' value is within tolerance")
+
 
 })

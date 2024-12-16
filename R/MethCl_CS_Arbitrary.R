@@ -95,13 +95,13 @@ setMethod("kSt_r<-", "CSarbitrary", function(object, value) {
 
 # Wetted Area
 #------------------------------------------------------------------------------
-#' @title Calculates Wetted Area
+#' @title Wetted Area
 #' @name wetted_area
 #' @aliases wetted_area,CSarbitrary-method
-#' @description Calculates the wetted area of a CSarbitrary or CScircle
-#'     object for given water levels.
+#' @description Calculates the wetted area of a CSarbitrary object for given
+#'  water levels.
 #' @usage wetted_area(object, h, ret = "A")
-#' @param object An object of class CSarbitrary or CScircle.
+#' @param object An object of class CSarbitrary.
 #' @param h A numeric vector of water levels [m].
 #' @param ret A character string; if `A`, returns total wetted area. If `Aii`,
 #'     returns wetted area by segment.
@@ -169,13 +169,13 @@ setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
 
 # Wetted Perimeter
 #------------------------------------------------------------------------------
-#' @title Calculates Wetted Perimeter
+#' @title Wetted Perimeter
 #' @name wetted_perimeter
 #' @aliases wetted_perimeter,CSarbitrary-method
-#' @description Calculates the wetted perimeter of a CSarbitrary or CScircle
+#' @description Calculates the wetted perimeter of a CSarbitrary
 #'     object for given water levels.
 #' @usage wetted_perimeter(object, h, ret = "P")
-#' @param object An object of class CSarbitrary or CScircle.
+#' @param object An object of class CSarbitrary.
 #' @param h A numeric vector of water levels [m].
 #' @param ret A character string; if `P`, returns total wetted perimeter. If `Pii`,
 #'     returns wetted perimeter by segment.
@@ -320,7 +320,7 @@ setMethod(
 #' @param object A `CSarbitrary` object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope  [-].
-#' @param method method to calculate the rougness. method="Strickler" considers
+#' @param method method to calculate the roughness. method="Strickler" considers
 #'  equal roughness KSt_B, and method="Einstein" estimates a mean roughness.
 #' @return Flow velocity [m/s]
 #' @examples
@@ -495,14 +495,14 @@ setMethod(
 
 
 
-# Calculate Uniform Flow Depth
+# Calculate Flow Depth
 #------------------------------------------------------------------------------
-#' @title Uniform Flow Depth
-#' @name uniform_flow_depth
-#' @aliases uniform_flow_depth,CSarbitrary-method
-#' @description Calculates the uniform flow depth of a `CSarbitrary` object for
-#' a given discharge and bottom slope.
-#' @usage uniform_flow_depth(object, Q, J, method = "Strickler", ret = "all",
+#' @title Flow Depth
+#' @name flow_depth
+#' @aliases flow_depth,CSarbitrary-method
+#' @description Calculates the flow depth of a `CSarbitrary` object for
+#' a given discharge and bottom slope under uniform flow conditions.
+#' @usage flow_depth(object, Q, J, method = "Strickler", ret = "all",
 #'   plot = FALSE)
 #' @param object A `CSarbitrary` object.
 #' @param Q Discharge [m3/s].
@@ -527,8 +527,8 @@ setMethod(
 #'   x = x, z = z, xb_l = 4, xb_r = 9,
 #'   kSt_B = 35, kSt_l = 45, kSt_r = 45
 #' )
-#' uniform_flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", ret = "h")
-#' uniform_flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", plot = TRUE)
+#' flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", ret = "h")
+#' flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", plot = TRUE)
 #' @importFrom grDevices dev.off rgb
 #' @importFrom graphics legend lines points polygon
 #' @importFrom stats uniroot
@@ -536,7 +536,7 @@ setMethod(
 #' @export
 
 setMethod(
-  "uniform_flow_depth", "CSarbitrary",
+  "flow_depth", "CSarbitrary",
   function(object, Q, J, method = "Strickler", ret = "all", plot = FALSE) {
 
     # Define function to find root
@@ -635,14 +635,14 @@ setMethod(
   }
 )
 
-# Uniform Flow Discharge
+# Flow
 #------------------------------------------------------------------------------
-#' @title Uniform Flow Discharge
-#' @name uniform_flow_discharge
-#' @aliases uniform_flow_discharge,CSarbitrary-method
-#' @description Calculates the uniform flow discharge of a `CSarbitrary` object for
-#' a given flow depth and bottom slope.
-#' @usage uniform_flow_discharge(object, h, J, method = "Strickler", ret = "all",
+#' @title Flow
+#' @name flow
+#' @aliases flow,CSarbitrary-method
+#' @description Calculates the discharge of a `CSarbitrary` object for
+#' a given flow depth and bottom slope under uniform flow conditions.
+#' @usage flow(object, h, J, method = "Strickler", ret = "all",
 #'   plot = FALSE)
 #' @param object A `CSarbitrary` object.
 #' @param h Flow depth [m].
@@ -665,12 +665,12 @@ setMethod(
 #'   x = x, z = z, xb_l = 4, xb_r = 9,
 #'   kSt_B = 35, kSt_l = 45, kSt_r = 45
 #' )
-#' uniform_flow_discharge(cs, h = 2, J = 0.0001, method = "Einstein", ret = "Q")
-#' uniform_flow_discharge(cs, h = 2, J = 0.0001, method = "Einstein", plot=TRUE)
+#' flow(cs, h = 2, J = 0.0001, method = "Einstein", ret = "Q")
+#' flow(cs, h = 2, J = 0.0001, method = "Einstein", plot=TRUE)
 #' @export
 #'
 setMethod(
-  "uniform_flow_discharge", "CSarbitrary",
+  "flow", "CSarbitrary",
   function(object, h, J, method = "Strickler", ret = "all", plot = FALSE) {
 
     if(h>max(z(object))){
@@ -754,14 +754,14 @@ setMethod(
 
 
 
-# Uniform flow Qmax
+# Flow_max
 #------------------------------------------------------------------------------
-#' @title Uniform Flow Qmax
-#' @name uniform_flow_Qmax
-#' @aliases uniform_flow_Qmax,CSarbitrary-method
-#' @description Calculates the maximum uniform flow discharge of a `CSarbitrary`
-#' object for a given bottom slope.
-#' @usage uniform_flow_Qmax(object, J, method = "Strickler", ret = "all", plot = FALSE)
+#' @title Maximum Flow
+#' @name flow_max
+#' @aliases flow_max,CSarbitrary-method
+#' @description Calculates the maximum discharge of a `CSarbitrary`
+#' object for a given bottom slope under uniform flow conditions.
+#' @usage flow_max(object, J, method = "Strickler", ret = "all", plot = FALSE)
 #' @param object A `CSarbitrary` object.
 #' @param J Bottom slope [-].
 #' @param method Method to calculate roughness. `method = "Strickler"` considers
@@ -783,14 +783,14 @@ setMethod(
 #'   x = x, z = z, xb_l = 4, xb_r = 9,
 #'   kSt_B = 35, kSt_l = 45, kSt_r = 45
 #' )
-#' uniform_flow_Qmax(cs, J=0.0001, method="Einstein",ret="Qmax")
-#' uniform_flow_Qmax(cs, J=0.0001, method="Einstein",plot=TRUE)
+#' flow_max(cs, J=0.0001, method="Einstein",ret="Qmax")
+#' flow_max(cs, J=0.0001, method="Einstein",plot=TRUE)
 #' @export
 #'
 
 
 setMethod(
-  "uniform_flow_Qmax", "CSarbitrary",
+  "flow_max", "CSarbitrary",
   function(object, J, method = "Strickler", ret = "all", plot = FALSE) {
 
     # Check if xb_l or xb_r is missing
@@ -810,7 +810,7 @@ setMethod(
     hmax <- zmax - min(z(object), na.rm = TRUE)
 
     # Calculate flow and velocity for maximal level
-    Qmax <- uniform_flow_discharge(object, hmax, J = J, method = method, ret = "Q")
+    Qmax <- flow(object, hmax, J = J, method = method, ret = "Q")
     v <- flow_velocity(object, h = hmax, J = J, method = method)
 
     # Plotting
@@ -891,13 +891,13 @@ setMethod(
 )
 
 #------------------------------------------------------------------------------
-# uniform_flow_Qmax_freeboard
+# flow_max_freeboard
 #------------------------------------------------------------------------------
-#' @title uniform_flow_Qmax_freeboard
-#' @name uniform_flow_Qmax_freeboard
-#' @description Calculates the maximum flow for given freeboard conditions,
-#' including optional plotting of results.
-#' @aliases uniform_flow_Qmax_freeboard,CSarbitrary-method
+#' @title Maximum Flow Including Freeboard
+#' @name flow_max_freeboard
+#' @description Calculates the maximum discharge of a `CSarbitrary`
+#' object including a freebord for a given bottom slope under uniform flow conditions.
+#' @aliases flow_max_freeboard,CSarbitrary-method
 #' @param object A CSarbitrary object.
 #' @param J Bottom slope [-].
 #' @param type Type of freeboard calculation. Defaults to "KOHS".
@@ -927,17 +927,17 @@ setMethod(
 #'                                       kSt_B = 45)
 #'
 #' # Channel
-#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = FALSE, J = 2.2 * 10^-2)
+#' flow_max_freeboard(cs, sigma_wz = 0.3, fv = FALSE, J = 2.2 * 10^-2)
 #' # Dam
-#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, J = 2.2 * 10^-2)
+#' flow_max_freeboard(cs, sigma_wz = 0.3, fv = TRUE, J = 2.2 * 10^-2)
 #' # Bridge
-#' uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
+#' flow_max_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
 #'            J = 2.2 * 10^-2)
 #'
 #' # Sensitivity analysis for slope
 #' J <- seq(1, 3, 0.1) * 10^-2
 #' Q <- sapply(J, function(J) {
-#'   uniform_flow_Qmax_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
+#'   flow_max_freeboard(cs, sigma_wz = 0.3, fv = TRUE, ft = 0.5,
 #'              J = J)$Qmax
 #' })
 #' plot(J, Q, type = "l")
@@ -945,7 +945,7 @@ setMethod(
 #'
 #'
 setMethod(
-  "uniform_flow_Qmax_freeboard",
+  "flow_max_freeboard",
   "CSarbitrary",
   function(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
            fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
@@ -998,7 +998,7 @@ setMethod(
     }
 
     # Calculate flow and velocity
-    Qmax <- uniform_flow_discharge(object, hmax, J = J, method = method, ret = "Q")
+    Qmax <- flow(object, hmax, J = J, method = method, ret = "Q")
     v <- flow_velocity(object, h = hmax, J = J, method = method)
 
     # Optional plot

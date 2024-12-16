@@ -3,12 +3,12 @@
 \name{wetted_area}
 \alias{wetted_area}
 \alias{wetted_area,CSarbitrary-method}
-\title{Calculates Wetted Area}
+\title{Wetted Area}
 \usage{
 wetted_area(object, h, ret = "A")
 }
 \arguments{
-\item{object}{An object of class CSarbitrary or CScircle.}
+\item{object}{An object of class CSarbitrary.}
 
 \item{h}{A numeric vector of water levels [m].}
 
@@ -20,8 +20,8 @@ A numeric vector or matrix of wetted areas based on the `ret`
     argument.
 }
 \description{
-Calculates the wetted area of a CSarbitrary or CScircle
-    object for given water levels.
+Calculates the wetted area of a CSarbitrary object for given
+ water levels.
 }
 \examples{
 # Define sample cross-section data

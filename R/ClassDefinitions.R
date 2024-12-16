@@ -3,7 +3,6 @@ setClassUnion("numeric_or_logical", c("numeric", "logical"))
 setClassUnion("numeric_or_null", c("numeric", "NULL"))
 
 #' @title CSarbitrary Class
-#' @name CSarbitrary
 #' @aliases CSarbitrary-class
 #' @description Defines a cross-section class with arbitrary geometry for
 #'   hydraulic calculations.
@@ -76,23 +75,22 @@ setGeneric("mean_roughness", function(object, h)
   standardGeneric("mean_roughness"))
 setGeneric("flow_velocity", function(object,h, J, method = "Strickler")
   standardGeneric("flow_velocity"))
-setGeneric("uniform_flow_depth", function(object,  Q, J, method = "Strickler",
+setGeneric("flow_depth", function(object,  Q, J, method = "Strickler",
                                           ret = "all", plot = FALSE)
-  standardGeneric("uniform_flow_depth"))
+  standardGeneric("flow_depth"))
 setGeneric("WL_coords", function(object, ...) standardGeneric("WL_coords"))
 setGeneric("EL_coords", function(object, ...) standardGeneric("EL_coords"))
 setGeneric("froude_number", function(object, ...)
   standardGeneric("froude_number"))
-setGeneric("uniform_flow_discharge", function(object, h, J,
-                                              method = "Strickler", ret = "all",
+setGeneric("flow", function(object, h, J, method = "Strickler", ret = "all",
                                               plot = FALSE)
-             standardGeneric("uniform_flow_discharge"))
-setGeneric("uniform_flow_Qmax", function(object, J, method= "Strickler",
+             standardGeneric("flow"))
+setGeneric("flow_max", function(object, J, method= "Strickler",
                                          ret = "all", plot = FALSE)
-  standardGeneric("uniform_flow_Qmax"))
-setGeneric("uniform_flow_Qmax_freeboard", function(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
+  standardGeneric("flow_max"))
+setGeneric("flow_max_freeboard", function(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
                                                    fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
                                                    ret = "all", plot = FALSE)
-  standardGeneric("uniform_flow_Qmax_freeboard"))
+  standardGeneric("flow_max_freeboard"))
 
 

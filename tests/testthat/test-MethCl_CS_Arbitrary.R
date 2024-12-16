@@ -72,17 +72,17 @@ test_that("flow_velocity for Bollrich3_6_1_6 calculates correctly", {
                              method = "Einstein"), 0.482, tolerance = 0.001)
 })
 
-test_that("uniform_flow_depth for Bollrich3_6_1_6 calculates correctly", {
-  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+test_that("flow_depth for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
                                   method = "Einstein", ret = "h"),
                2, tolerance = 0.001)
-  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+  expect_equal(flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
                                   method = "Einstein")$v, 0.482, tolerance = 0.001)
-  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+  expect_equal(flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
                                   method = "Einstein")$A, 18, tolerance = 0.001)
-  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+  expect_equal(flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
                                   method = "Einstein")$P, 13.94, tolerance = 0.001)
-  expect_equal(uniform_flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
+  expect_equal(flow_depth(csAr_Bollrich3_6_1_6, Q = 8.677, J = 0.0001,
                                   method = "Einstein")$kSt_m, 40.66306, tolerance = 0.001)
 })
 
@@ -91,38 +91,38 @@ test_that("mean_roughness for Bollrich3_6_1_6 calculates correctly", {
                40.66306, tolerance = 0.001)
 })
 
-test_that("uniform_flow_discharge for Bollrich3_6_1_6 calculates correctly", {
-  expect_equal(uniform_flow_discharge(csAr_Bollrich3_6_1_6, h=2, J=0.0001, method="Einstein",
+test_that("flow for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(flow(csAr_Bollrich3_6_1_6, h=2, J=0.0001, method="Einstein",
                     ret="Q"),
                8.677, tolerance = 0.001)
-  expect_equal(uniform_flow_discharge(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
+  expect_equal(flow(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
                                       method="Einstein")$v,0.482, tolerance = 0.001)
-  expect_equal(uniform_flow_discharge(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
+  expect_equal(flow(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
                                       method="Einstein")$A,18, tolerance = 0.001)
-  expect_equal(uniform_flow_discharge(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
+  expect_equal(flow(csAr_Bollrich3_6_1_6, h=2, J=0.0001,
                                       method="Einstein")$kSt_m,40.66306, tolerance = 0.001)
 })
 
 
-test_that("uniform_flow_Qmax for Bollrich3_6_1_6 calculates correctly", {
-  expect_equal(uniform_flow_Qmax(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
+test_that("flow_max for Bollrich3_6_1_6 calculates correctly", {
+  expect_equal(flow_max(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
                                       ret="Qmax"),
                8.677, tolerance = 0.001)
-  expect_equal(uniform_flow_Qmax(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
+  expect_equal(flow_max(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
                                  ret="v"),
                0.482, tolerance = 0.001)
-  expect_equal(uniform_flow_Qmax(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
+  expect_equal(flow_max(csAr_Bollrich3_6_1_6, J=0.0001, method="Einstein",
                                  ret="hmax"),
                2, tolerance = 0.001)
-  expect_equal(uniform_flow_Qmax(csAr_Bollrich3_6_1_6, J=0.0001,
+  expect_equal(flow_max(csAr_Bollrich3_6_1_6, J=0.0001,
                                  method="Einstein")$A,18, tolerance = 0.001)
 
 })
 
 
 
-test_that("uniform_flow_Qmax_freeboard calculations are accurate", {
-  result_uniform_flow_Qmax_freeboard <- uniform_flow_Qmax_freeboard(
+test_that("flow_max_freeboard calculations are accurate", {
+  result_flow_max_freeboard <- flow_max_freeboard(
     csAr_KOHS_Schaechen,
     J = 2.2e-2,
     type = "KOHS",
@@ -132,14 +132,14 @@ test_that("uniform_flow_Qmax_freeboard calculations are accurate", {
     fe = NULL,
     method = "Strickler"
   )
-  expect_equal(result_uniform_flow_Qmax_freeboard$fe, 2.57, tolerance = 0.01,
-               label = "uniform_flow_Qmax_freeboard 'fe' value is within tolerance")
-  expect_equal(result_uniform_flow_Qmax_freeboard$v, 7.1, tolerance = 0.01,
-               label = "uniform_flow_Qmax_freeboard 'v' value is within tolerance")
-  expect_equal(result_uniform_flow_Qmax_freeboard$Qmax, 120, tolerance = 0.01,
-               label = "uniform_flow_Qmax_freeboard 'Qmax' value is within tolerance")
-  expect_equal(result_uniform_flow_Qmax_freeboard$hmax, 1.27, tolerance = 0.01,
-               label = "uniform_flow_Qmax_freeboard 'hmax' value is within tolerance")
+  expect_equal(result_flow_max_freeboard$fe, 2.57, tolerance = 0.01,
+               label = "flow_max_freeboard 'fe' value is within tolerance")
+  expect_equal(result_flow_max_freeboard$v, 7.1, tolerance = 0.01,
+               label = "flow_max_freeboard 'v' value is within tolerance")
+  expect_equal(result_flow_max_freeboard$Qmax, 120, tolerance = 0.01,
+               label = "flow_max_freeboard 'Qmax' value is within tolerance")
+  expect_equal(result_flow_max_freeboard$hmax, 1.27, tolerance = 0.01,
+               label = "flow_max_freeboard 'hmax' value is within tolerance")
 
 
 })

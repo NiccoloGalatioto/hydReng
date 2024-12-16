@@ -3,12 +3,12 @@
 \name{wetted_perimeter}
 \alias{wetted_perimeter}
 \alias{wetted_perimeter,CSarbitrary-method}
-\title{Calculates Wetted Perimeter}
+\title{Wetted Perimeter}
 \usage{
 wetted_perimeter(object, h, ret = "P")
 }
 \arguments{
-\item{object}{An object of class CSarbitrary or CScircle.}
+\item{object}{An object of class CSarbitrary.}
 
 \item{h}{A numeric vector of water levels [m].}
 
@@ -20,7 +20,7 @@ A numeric vector or matrix of wetted perimeter based on the `ret`
     argument.
 }
 \description{
-Calculates the wetted perimeter of a CSarbitrary or CScircle
+Calculates the wetted perimeter of a CSarbitrary
     object for given water levels.
 }
 \examples{

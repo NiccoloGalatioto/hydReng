@@ -14,7 +14,7 @@ flow_velocity(object, h, J, method = "Strickler")
 
 \item{J}{Bottom slope  [-].}
 
-\item{method}{method to calculate the rougness. method="Strickler" considers
+\item{method}{method to calculate the roughness. method="Strickler" considers
 equal roughness KSt_B, and method="Einstein" estimates a mean roughness.}
 }
 \value{

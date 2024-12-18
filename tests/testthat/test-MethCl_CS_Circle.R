@@ -68,5 +68,3 @@ test_that("Circle: hydraulics using Prandtl-Colebrook-White (Bollrich S.260)", {
 }
 )
 
-cs<-CScircle(Di=3)
-froude_number(cs,v=5.533,h=1.8)

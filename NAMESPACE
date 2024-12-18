@@ -3,6 +3,7 @@
 export(CSarbitrary)
 export(CScircle)
 export(Gb_SJ)
+export(Q_pressflow_air)
 export(freeboard)
 exportClasses(CSarbitrary)
 exportClasses(CScircle)

@@ -3,32 +3,46 @@
 \name{flow_velocity}
 \alias{flow_velocity}
 \alias{flow_velocity,CSarbitrary-method}
+\alias{flow_velocity,CScircle-method}
 \title{Flow Velocity}
 \usage{
-flow_velocity(object, h, J, method = "Strickler")
+flow_velocity(object, h, J, method = "Strickler",nu = 1.24e-6,...)
 }
 \arguments{
-\item{object}{A `CSarbitrary` object.}
+\item{object}{A CSarbitrary or CScircle object.}
 
 \item{h}{Flow depth [m].}
 
 \item{J}{Bottom slope  [-].}
 
-\item{method}{method to calculate the roughness. method="Strickler" considers
-equal roughness KSt_B, and method="Einstein" estimates a mean roughness.}
+\item{method}{Method to calculate the roughness. Method = "Strickler" considers
+equal roughness, and method = "Einstein" estimates a mean roughness.
+Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
+ according to Prandtl-Coolebrook-White for CScircle objects.}
+
+\item{nu}{Kinematic viscosity. Only for CScircle objects}
+
+\item{...}{Additional arguments.}
 }
 \value{
 Flow velocity [m/s]
 }
 \description{
-Calculates the flow velocity of a `CSarbitrary` object for a
- given water levels and bottom slope.
+Calculates the flow velocity of a CSarbitrary or CScircle object for a
+ given water level and bottom slope under uniform flow conditions.
 }
 \examples{
+
+# Example for CSarbitrary object
 x <- c(0, 4, 9, 13)
 z <- c(2, 0, 0, 2)
 cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
                   kSt_l = 45, kSt_r = 45)
 flow_velocity(cs, h = 1,J = 0.01, method = "Einstein")
+
+# Example for CScircle object
+csC <- CScircle(Di = 0.7,ks = 1.5, kSt = 75)
+flow_velocity(csC, h = 0.46, J = 0.004)
+flow_velocity(csC, h = 0.46, J = 0.004, method = "Prandtl-Coolebrook-White")
 
 }

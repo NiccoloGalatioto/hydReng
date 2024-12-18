@@ -3,20 +3,21 @@
 \name{flow}
 \alias{flow}
 \alias{flow,CSarbitrary-method}
+\alias{flow,CScircle-method}
 \title{Flow}
 \usage{
-flow(object, h, J, method = "Strickler", ret = "all",
-  plot = FALSE)
+flow(object, h, J, method = "Strickler", ret = "all", plot = FALSE)
 }
 \arguments{
-\item{object}{A `CSarbitrary` object.}
+\item{object}{A CSarbitrary or CScircle object.}
 
 \item{h}{Flow depth [m].}
 
 \item{J}{Bottom slope [-].}
 
-\item{method}{Method to calculate roughness. `method = "Strickler"` considers
-equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.}
+\item{method}{Method to calculate the roughness. Method = "Strickler" considers
+equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
+considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.}
 
 \item{ret}{Defines the result returned by the function.}
 
@@ -25,17 +26,18 @@ equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.}
 \value{
 A list containing the following hydraulic variables:
 \describe{
-  \item{Q}{Discharge [m3/s].}
+  \item{Q}{Discharge [m^3/s].}
   \item{v}{Flow velocity [m/s].}
-  \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
-  \item{A}{Wetted area [m2].}
+  \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
+  \item{A}{Wetted area [m^2].}
 }
 }
 \description{
-Calculates the discharge of a `CSarbitrary` object for
-a given flow depth and bottom slope under uniform flow conditions.
+Calculates the discharge of a CSarbitrary or CScircle object for
+  a given flow depth and bottom slope under uniform flow conditions.
 }
 \examples{
+# Example for CSarbitrary object
 x <- c(0, 4, 9, 13)
 z <- c(2, 0, 0, 2)
 cs <- CSarbitrary(
@@ -43,5 +45,10 @@ cs <- CSarbitrary(
   kSt_B = 35, kSt_l = 45, kSt_r = 45
 )
 flow(cs, h = 2, J = 0.0001, method = "Einstein", ret = "Q")
-flow(cs, h = 2, J = 0.0001, method = "Einstein", plot=TRUE)
+flow(cs, h = 2, J = 0.0001, method = "Einstein", plot = TRUE)
+
+# Example for CScircle object
+csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)
+flow(csC, h = 0.46, J = 0.004)
+flow(csC, h = 0.46, J = 0.004, method = "Prandtl-Coolebrook-White", plot = TRUE)
 }

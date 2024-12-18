@@ -5,21 +5,9 @@
 \alias{flow_max_freeboard,CSarbitrary-method}
 \title{Maximum Flow Including Freeboard}
 \usage{
-\S4method{flow_max_freeboard}{CSarbitrary}(
-  object,
-  J,
-  type = "KOHS",
-  sigma_wz = 0,
-  fw = TRUE,
-  fv = FALSE,
-  ft = 0,
-  fe = NULL,
-  fe_min = 0,
-  fe_max = Inf,
-  method = "Strickler",
-  ret = "all",
-  plot = FALSE
-)
+flow_max_freeboard(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
+fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
+ret = "all", plot = FALSE)
 }
 \arguments{
 \item{object}{A CSarbitrary object.}
@@ -31,10 +19,10 @@
 \item{sigma_wz}{Uncertainty in bed elevation (morphodynamics) [m].}
 
 \item{fw}{Logical; considers freeboard due to uncertainty in water elevation.
-If `TRUE`, calculates according to KOHS; if `FALSE`, sets `fw = 0`.}
+If TRUE, calculates according to KOHS; if FALSE, sets fw = 0.}
 
 \item{fv}{Logical; considers freeboard due to waves. If `TRUE`, calculates
-according to KOHS; if `FALSE`, sets `fv = 0`.}
+according to KOHS; if FALSE, sets fv = 0.}
 
 \item{ft}{Freeboard due to driftwood based on KOHS (2013) [m].}
 
@@ -52,11 +40,11 @@ according to KOHS; if `FALSE`, sets `fv = 0`.}
 \item{plot}{Logical; whether to plot the results.}
 }
 \value{
-Depending on `ret`, returns flow, water level, velocity, or all
+Depending on ret, returns flow, water level, velocity, or all
   details.
 }
 \description{
-Calculates the maximum discharge of a `CSarbitrary`
+Calculates the maximum discharge of a CSarbitrary
 object including a freebord for a given bottom slope under uniform flow conditions.
 }
 \examples{

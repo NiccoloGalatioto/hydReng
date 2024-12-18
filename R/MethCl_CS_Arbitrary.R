@@ -97,20 +97,22 @@ setMethod("kSt_r<-", "CSarbitrary", function(object, value) {
 #------------------------------------------------------------------------------
 #' @title Wetted Area
 #' @name wetted_area
-#' @aliases wetted_area,CSarbitrary-method
-#' @description Calculates the wetted area of a CSarbitrary object for given
-#'  water levels.
+#' @aliases wetted_area wetted_area,CSarbitrary-method
+#'   wetted_area,CScircle-method
+#' @description Calculates the wetted area of a CSarbitrary or CScircle
+#'   object for given water levels.
 #' @usage wetted_area(object, h, ret = "A")
-#' @param object An object of class CSarbitrary.
-#' @param h A numeric vector of water levels [m].
-#' @param ret A character string; if `A`, returns total wetted area. If `Aii`,
-#'     returns wetted area by segment.
+#' @param object An object of class CSarbitrary or CScircle.
+#' @param h A numeric vector of water levels (m). For CScircle, only a
+#'   single numeric value is allowed.
+#' @param ret A character string. If `A`, returns total wetted area.
+#'   If `Aii`, returns wetted area by segment.
 #' @return A numeric vector or matrix of wetted areas based on the `ret`
-#'     argument.
+#'   argument.
 #' @importFrom methods new validObject
 #' @importFrom stats approx
 #' @examples
-#' # Define sample cross-section data
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
@@ -122,7 +124,16 @@ setMethod("kSt_r<-", "CSarbitrary", function(object, value) {
 #'
 #' # Calculate wetted area for each segment at the same water levels
 #' wetted_area(cs, h, ret = "Aii")
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 1, kSt = 75)
+#'
+#' # Calculate total wetted area at water level 1 m
+#' h <- 1
+#' wetted_area(csC, h)
 #' @export
+
+
 setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
   n_segments <- length(x(object)) - 1  # Number of segments
 
@@ -171,20 +182,22 @@ setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
 #------------------------------------------------------------------------------
 #' @title Wetted Perimeter
 #' @name wetted_perimeter
-#' @aliases wetted_perimeter,CSarbitrary-method
-#' @description Calculates the wetted perimeter of a CSarbitrary
-#'     object for given water levels.
+#' @aliases wetted_perimeter wetted_perimeter,CSarbitrary-method
+#'   wetted_perimeter,CScircle-method
+#' @description Calculates the wetted perimeter of a CSarbitrary or CScircle
+#'   object for given water levels.
 #' @usage wetted_perimeter(object, h, ret = "P")
-#' @param object An object of class CSarbitrary.
-#' @param h A numeric vector of water levels [m].
-#' @param ret A character string; if `P`, returns total wetted perimeter. If `Pii`,
-#'     returns wetted perimeter by segment.
+#' @param object An object of class CSarbitrary or CScircle.
+#' @param h A numeric vector of water levels (m). For CScircle, only a
+#'   single numeric value is allowed.
+#' @param ret A character string. If `P`, returns total wetted perimeter.
+#'   If `Pii`, returns wetted perimeter by segment.
 #' @return A numeric vector or matrix of wetted perimeter based on the `ret`
-#'     argument.
+#'   argument.
 #' @importFrom methods new validObject
 #' @importFrom stats approx
 #' @examples
-#' # Define sample cross-section data
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
@@ -196,7 +209,15 @@ setMethod("wetted_area", "CSarbitrary", function(object, h, ret = "A") {
 #'
 #' # Calculate wetted perimeter for each segment at the same water levels
 #' wetted_perimeter(cs, h, ret = "Pii")
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 1, kSt = 75)
+#'
+#' # Calculate total wetted perimeter at water level 1 m
+#' h <- 1
+#' wetted_perimeter(csC, h)
 #' @export
+
 
 setMethod("wetted_perimeter", "CSarbitrary", function(object, h, ret = "P") {
   n_segments <- length(x(object)) - 1  # Number of segments
@@ -249,11 +270,11 @@ setMethod("wetted_perimeter", "CSarbitrary", function(object, h, ret = "P") {
 #' @title Mean Roughness
 #' @name mean_roughness
 #' @aliases mean_roughness,CSarbitrary-method
-#' @description Calculates the mean roughness of a `CSarbitrary` object for a
+#' @description Calculates the mean roughness of a CSarbitrary object for a
 #'  given
 #'   set of water levels, based on Einstein (1934).
 #' @usage mean_roughness(object, h)
-#' @param object A `CSarbitrary` object.
+#' @param object A CSarbitrary object.
 #' @param h A numeric vector of water levels [m].
 #' @return A numeric vector representing the mean roughness for the given water
 #'  levels.
@@ -313,22 +334,33 @@ setMethod(
 #------------------------------------------------------------------------------
 #' @title Flow Velocity
 #' @name flow_velocity
-#' @aliases flow_velocity,CSarbitrary-method
-#' @description Calculates the flow velocity of a `CSarbitrary` object for a
-#'  given water levels and bottom slope.
-#' @usage flow_velocity(object, h, J, method = "Strickler")
-#' @param object A `CSarbitrary` object.
+#' @aliases  flow_velocity flow_velocity,CSarbitrary-method flow_velocity,CScircle-method
+#' @description Calculates the flow velocity of a CSarbitrary or CScircle object for a
+#'  given water level and bottom slope under uniform flow conditions.
+#' @usage flow_velocity(object, h, J, method = "Strickler",nu = 1.24e-6,...)
+#' @param object A CSarbitrary or CScircle object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope  [-].
-#' @param method method to calculate the roughness. method="Strickler" considers
-#'  equal roughness KSt_B, and method="Einstein" estimates a mean roughness.
+#' @param method Method to calculate the roughness. Method = "Strickler" considers
+#'  equal roughness, and method = "Einstein" estimates a mean roughness.
+#'  Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
+#'   according to Prandtl-Coolebrook-White for CScircle objects.
+#' @param nu Kinematic viscosity. Only for CScircle objects
+#' @param ... Additional arguments.
 #' @return Flow velocity [m/s]
 #' @examples
+#'
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
 #'                   kSt_l = 45, kSt_r = 45)
 #' flow_velocity(cs, h = 1,J = 0.01, method = "Einstein")
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 0.7,ks = 1.5, kSt = 75)
+#' flow_velocity(csC, h = 0.46, J = 0.004)
+#' flow_velocity(csC, h = 0.46, J = 0.004, method = "Prandtl-Coolebrook-White")
 #'
 #' @export
 #'
@@ -336,7 +368,7 @@ setMethod(
 
 setMethod(
   "flow_velocity", "CSarbitrary",
-  function(object, h, J, method = "Strickler") {
+  function(object, h, J, method = "Strickler",nu = 1.24e-6) {
     # Define variables for velocity calculation
     A <- wetted_area(object, h = h)
     P <- wetted_perimeter(object, h = h)
@@ -476,7 +508,31 @@ setMethod(
 
 # Froude number (Fr)
 #------------------------------------------------------------------------------
-
+#' @title Froude Number
+#' @name froude_number
+#' @aliases  froude_number froude_number,CSarbitrary-method froude_number,CScircle-method
+#' @description Calculates the froude number of a CSarbitrary or CScircle object for a
+#'  given water level and velocity under uniform flow conditions.
+#' @usage froude_number(object, v, h)
+#' @param object A CSarbitrary or CScircle object.
+#' @param h Flow depth [m].
+#' @param v Flow velocity  [m/s].
+#' @return Froude number [-]
+#' @examples
+#'
+#' # Example for CSarbitrary object
+#' x <- c(0, 4, 9, 13)
+#' z <- c(2, 0, 0, 2)
+#' cs <- CSarbitrary(x = x, z = z, xb_l = 4, xb_r = 9, kSt_B = 35,
+#'                   kSt_l = 45, kSt_r = 45)
+#' froude_number(cs,h=1, v = 2.5)
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 0.7,ks = 1.5, kSt = 75)
+#' froude_number(csC, h = 0.46, v = 2.5)
+#'
+#' @export
+#'
 setMethod(
   "froude_number", "CSarbitrary",
   function(object, v, h) {
@@ -499,16 +555,16 @@ setMethod(
 #------------------------------------------------------------------------------
 #' @title Flow Depth
 #' @name flow_depth
-#' @aliases flow_depth,CSarbitrary-method
-#' @description Calculates the flow depth of a `CSarbitrary` object for
-#' a given discharge and bottom slope under uniform flow conditions.
-#' @usage flow_depth(object, Q, J, method = "Strickler", ret = "all",
-#'   plot = FALSE)
-#' @param object A `CSarbitrary` object.
-#' @param Q Discharge [m3/s].
+#' @aliases flow_depth flow_depth,CSarbitrary-method flow_depth,CScircle-method
+#' @description Calculates the flow depth of a CSarbitrary or CScircle object for
+#'   a given discharge and bottom slope under uniform flow conditions.
+#' @usage flow_depth(object, Q, J, method = "Strickler", ret = "all", plot = FALSE)
+#' @param object A CSarbitrary or CScircle object.
+#' @param Q Discharge [m^3/s].
 #' @param J Bottom slope [-].
-#' @param method Method to calculate roughness. `method = "Strickler"` considers
-#' equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.
+#' @param method Method to calculate the roughness. Method = "Strickler" considers
+#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
+#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
 #' @param ret Defines the result returned by the function.
 #' @param plot Logical; if `TRUE`, plots the results.
 #' @return A list containing the following hydraulic variables:
@@ -516,11 +572,12 @@ setMethod(
 #'   \item{h}{Flow depth [m].}
 #'   \item{v}{Flow velocity [m/s].}
 #'   \item{Fr}{Froude number [-].}
-#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
-#'   \item{A}{Wetted area [m2].}
+#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
+#'   \item{A}{Wetted area [m^2].}
 #'   \item{P}{Wetted perimeter [m].}
 #' }
 #' @examples
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(
@@ -529,11 +586,18 @@ setMethod(
 #' )
 #' flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", ret = "h")
 #' flow_depth(cs, Q = 8.677, J = 0.0001, method = "Einstein", plot = TRUE)
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)
+#' flow_depth(csC, Q = 0.46, J = 0.004)
+#' flow_depth(csC, Q = 0.46, J = 0.004, method = "Prandtl-Coolebrook-White", plot = TRUE)
+#'
 #' @importFrom grDevices dev.off rgb
-#' @importFrom graphics legend lines points polygon
+#' @importFrom graphics legend lines points polygon axis symbols
 #' @importFrom stats uniroot
 #' @importFrom utils tail
 #' @export
+
 
 setMethod(
   "flow_depth", "CSarbitrary",
@@ -639,26 +703,27 @@ setMethod(
 #------------------------------------------------------------------------------
 #' @title Flow
 #' @name flow
-#' @aliases flow,CSarbitrary-method
-#' @description Calculates the discharge of a `CSarbitrary` object for
-#' a given flow depth and bottom slope under uniform flow conditions.
-#' @usage flow(object, h, J, method = "Strickler", ret = "all",
-#'   plot = FALSE)
-#' @param object A `CSarbitrary` object.
+#' @aliases flow flow,CSarbitrary-method flow,CScircle-method
+#' @description Calculates the discharge of a CSarbitrary or CScircle object for
+#'   a given flow depth and bottom slope under uniform flow conditions.
+#' @usage flow(object, h, J, method = "Strickler", ret = "all", plot = FALSE)
+#' @param object A CSarbitrary or CScircle object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope [-].
-#' @param method Method to calculate roughness. `method = "Strickler"` considers
-#' equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.
+#' @param method Method to calculate the roughness. Method = "Strickler" considers
+#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
+#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
 #' @param ret Defines the result returned by the function.
 #' @param plot Logical; if `TRUE`, plots the results.
 #' @return A list containing the following hydraulic variables:
 #' \describe{
-#'   \item{Q}{Discharge [m3/s].}
+#'   \item{Q}{Discharge [m^3/s].}
 #'   \item{v}{Flow velocity [m/s].}
-#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
-#'   \item{A}{Wetted area [m2].}
+#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
+#'   \item{A}{Wetted area [m^2].}
 #' }
 #' @examples
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(
@@ -666,7 +731,12 @@ setMethod(
 #'   kSt_B = 35, kSt_l = 45, kSt_r = 45
 #' )
 #' flow(cs, h = 2, J = 0.0001, method = "Einstein", ret = "Q")
-#' flow(cs, h = 2, J = 0.0001, method = "Einstein", plot=TRUE)
+#' flow(cs, h = 2, J = 0.0001, method = "Einstein", plot = TRUE)
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)
+#' flow(csC, h = 0.46, J = 0.004)
+#' flow(csC, h = 0.46, J = 0.004, method = "Prandtl-Coolebrook-White", plot = TRUE)
 #' @export
 #'
 setMethod(
@@ -758,25 +828,27 @@ setMethod(
 #------------------------------------------------------------------------------
 #' @title Maximum Flow
 #' @name flow_max
-#' @aliases flow_max,CSarbitrary-method
-#' @description Calculates the maximum discharge of a `CSarbitrary`
+#' @aliases flow_max flow_max,CSarbitrary-method flow_max,CScircle-method
+#' @description Calculates the maximum discharge of a CSarbitrary or CScircle
 #' object for a given bottom slope under uniform flow conditions.
 #' @usage flow_max(object, J, method = "Strickler", ret = "all", plot = FALSE)
-#' @param object A `CSarbitrary` object.
+#' @param object A CSarbitrary or CScircle object.
 #' @param J Bottom slope [-].
-#' @param method Method to calculate roughness. `method = "Strickler"` considers
-#' equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.
+#' @param method Method to calculate the roughness. Method = "Strickler" considers
+#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
+#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
 #' @param ret Defines the result returned by the function.
-#' @param plot Logical; if `TRUE`, plots the results.
+#' @param plot Logical; if TRUE, plots the results.
 #' @return A list containing the following hydraulic variables:
 #' \describe{
 #'   \item{Qmax}{Maximum discharge [m3/s].}
 #'   \item{hmax}{Maximum flow depth [m].}
 #'   \item{v}{Flow velocity [m/s].}
-#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
+#'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
 #'   \item{A}{Wetted area [m2].}
 #' }
 #' @examples
+#' # Example for CSarbitrary object
 #' x <- c(0, 4, 9, 13)
 #' z <- c(2, 0, 0, 2)
 #' cs <- CSarbitrary(
@@ -785,6 +857,11 @@ setMethod(
 #' )
 #' flow_max(cs, J=0.0001, method="Einstein",ret="Qmax")
 #' flow_max(cs, J=0.0001, method="Einstein",plot=TRUE)
+#'
+#' # Example for CScircle object
+#' csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)
+#' flow_max(csC, J=0.004)
+#' flow_max(csC, J = 0.004, method = "Prandtl-Coolebrook-White", plot = TRUE)
 #' @export
 #'
 
@@ -895,17 +972,20 @@ setMethod(
 #------------------------------------------------------------------------------
 #' @title Maximum Flow Including Freeboard
 #' @name flow_max_freeboard
-#' @description Calculates the maximum discharge of a `CSarbitrary`
+#' @description Calculates the maximum discharge of a CSarbitrary
 #' object including a freebord for a given bottom slope under uniform flow conditions.
 #' @aliases flow_max_freeboard,CSarbitrary-method
+#' @usage flow_max_freeboard(object, J, type = "KOHS", sigma_wz = 0, fw = TRUE, fv = FALSE, ft = 0,
+#' fe = NULL, fe_min = 0, fe_max = Inf, method = "Strickler",
+#' ret = "all", plot = FALSE)
 #' @param object A CSarbitrary object.
 #' @param J Bottom slope [-].
 #' @param type Type of freeboard calculation. Defaults to "KOHS".
 #' @param sigma_wz Uncertainty in bed elevation (morphodynamics) [m].
 #' @param fw Logical; considers freeboard due to uncertainty in water elevation.
-#'   If `TRUE`, calculates according to KOHS; if `FALSE`, sets `fw = 0`.
+#'   If TRUE, calculates according to KOHS; if FALSE, sets fw = 0.
 #' @param fv Logical; considers freeboard due to waves. If `TRUE`, calculates
-#'   according to KOHS; if `FALSE`, sets `fv = 0`.
+#'   according to KOHS; if FALSE, sets fv = 0.
 #' @param ft Freeboard due to driftwood based on KOHS (2013) [m].
 #' @param fe Fixed freeboard value to override calculations [m].
 #' @param fe_min Minimum freeboard [m].
@@ -914,7 +994,7 @@ setMethod(
 #' @param ret Definition of the result returned by the function ("all", "Qmax",
 #'   "hmax", "fe", or "v").
 #' @param plot Logical; whether to plot the results.
-#' @return Depending on `ret`, returns flow, water level, velocity, or all
+#' @return Depending on ret, returns flow, water level, velocity, or all
 #'   details.
 #' @references KOHS (2013). Freibord bei Hochwasserschutzprojekten und
 #'   Gefahrenbeurteilungen - Empfehlungen der Kommission Hochwasserschutz KOHS.

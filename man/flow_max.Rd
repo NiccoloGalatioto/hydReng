@@ -3,21 +3,23 @@
 \name{flow_max}
 \alias{flow_max}
 \alias{flow_max,CSarbitrary-method}
+\alias{flow_max,CScircle-method}
 \title{Maximum Flow}
 \usage{
 flow_max(object, J, method = "Strickler", ret = "all", plot = FALSE)
 }
 \arguments{
-\item{object}{A `CSarbitrary` object.}
+\item{object}{A CSarbitrary or CScircle object.}
 
 \item{J}{Bottom slope [-].}
 
-\item{method}{Method to calculate roughness. `method = "Strickler"` considers
-equal roughness `KSt_B`, and `method = "Einstein"` estimates a mean roughness.}
+\item{method}{Method to calculate the roughness. Method = "Strickler" considers
+equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
+considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.}
 
 \item{ret}{Defines the result returned by the function.}
 
-\item{plot}{Logical; if `TRUE`, plots the results.}
+\item{plot}{Logical; if TRUE, plots the results.}
 }
 \value{
 A list containing the following hydraulic variables:
@@ -25,15 +27,16 @@ A list containing the following hydraulic variables:
   \item{Qmax}{Maximum discharge [m3/s].}
   \item{hmax}{Maximum flow depth [m].}
   \item{v}{Flow velocity [m/s].}
-  \item{kSt_m}{Mean roughness [m^(1/3)/s] (if `method = "Einstein"`).}
+  \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
   \item{A}{Wetted area [m2].}
 }
 }
 \description{
-Calculates the maximum discharge of a `CSarbitrary`
+Calculates the maximum discharge of a CSarbitrary or CScircle
 object for a given bottom slope under uniform flow conditions.
 }
 \examples{
+# Example for CSarbitrary object
 x <- c(0, 4, 9, 13)
 z <- c(2, 0, 0, 2)
 cs <- CSarbitrary(
@@ -42,4 +45,9 @@ cs <- CSarbitrary(
 )
 flow_max(cs, J=0.0001, method="Einstein",ret="Qmax")
 flow_max(cs, J=0.0001, method="Einstein",plot=TRUE)
+
+# Example for CScircle object
+csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)
+flow_max(csC, J=0.004)
+flow_max(csC, J = 0.004, method = "Prandtl-Coolebrook-White", plot = TRUE)
 }

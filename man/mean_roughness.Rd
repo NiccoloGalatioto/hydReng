@@ -8,7 +8,7 @@
 mean_roughness(object, h)
 }
 \arguments{
-\item{object}{A `CSarbitrary` object.}
+\item{object}{A CSarbitrary object.}
 
 \item{h}{A numeric vector of water levels [m].}
 }
@@ -17,7 +17,7 @@ A numeric vector representing the mean roughness for the given water
  levels.
 }
 \description{
-Calculates the mean roughness of a `CSarbitrary` object for a
+Calculates the mean roughness of a CSarbitrary object for a
  given
   set of water levels, based on Einstein (1934).
 }

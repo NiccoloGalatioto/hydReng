@@ -28,16 +28,32 @@ lambda_kst <- function(kst, dhy) {
 
 # Reynolds Zahl
 # --------------------------------------------------------------
-reynolds <- function(v, Di, nu = 1.31e-6) {
+reynolds <- function(v, Di, nu = 1.14e-6) {
   return((v * Di) / nu)
 }
 
 
-# Aequivalent Diameter
+# Equivalent Diameter
 # --------------------------------------------------------------
+#' @title Equivalent Hydraulic Diameter
+#' @name d_aequiv
+#' @description Calculates the equivalent hydraulic diameter of a rectangular
+#' cross-section given its width and height.
+#' @usage d_aequiv(b, h)
+#' @param b Width of the rectangle [m].
+#' @param h Height of the rectangle [m].
+#' @return The equivalent hydraulic diameter [m].
+#' @examples
+#' d_aequiv(b = 2, h = 1)
+#' @export
+
 d_aequiv <- function(b, h) {
+  # Calculate hydraulic radius
   rhy <- (b * h) / (2 * (b + h))
+
+  # Convert hydraulic radius to hydraulic diameter
   daeq <- 4 * rhy
+
   return(daeq)
 }
 
@@ -58,10 +74,10 @@ xi_a <- function(A1, A2) {
 }
 
 
-# v pressflow to air (case 1)
+# Pressflow velocity to air (case 1)
 # --------------------------------------------------------------
-v_pressflow_air <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e = 0.5,
-                            nu = 1.31e-6, calc_lam = 'kst') {
+pressflow_velocity <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e = 0.5,
+                            nu = 1.14e-6, calc_lam = 'kst') {
 
   if (!is.null(b)) {
     Di <- d_aequiv(b, h)
@@ -89,14 +105,14 @@ v_pressflow_air <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e
 
 
 
-# Q pressflow to air (case 1)
+# Pressflow to air (case 1)
 # --------------------------------------------------------------
-#' @title Flow under pressure (Bernoulli)
-#' @name Q_pressflow_air
+#' @title Flow Under Pressure (Bernoulli)
+#' @name pressflow
 #' @description Calculates the flow in a pipe or a rectangle under pressure
 #'   (Bernoulli). The outlet is not submerged, e.g., the exit loss equals 0.
-#' @usage Q_pressflow_air(z0, z1, h0, Di=NULL, h = NULL, b = NULL, L, ks=NULL, kst,
-#'   xi_e = 0.5, nu = 1.31e-6, calc_lam = "kst")
+#' @usage pressflow(z0, z1, h0, Di=NULL, h = NULL, b = NULL, L, ks=NULL, kst,
+#'   xi_e = 0.5, nu = 1.14e-6, calc_lam = "kst")
 #' @param z0 Absolute height of upper gate – upstream of the inlet [m.a.s.l].
 #' @param z1 Absolute height of the pipe/rectangle vertical middle axis at
 #'   lower gate [m.a.s.l].
@@ -108,10 +124,10 @@ v_pressflow_air <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e
 #' @param ks Equivalent sand roughness [m].
 #' @param kst Roughness [m^(1/3)/s].
 #' @param calc_lam Defines if lambda should be calculated with ks or kst.
-#' @param xi_e (Optional) Energy loss factor [dimensionless]. Default = 0.5.
-#' @param nu Kinematic viscosity [m^2/s]. Default = 1.31e-6 m^2/s.
+#' @param xi_e Entrance loss [-]. Default = 0.5.
+#' @param nu Kinematic viscosity [m2/s]. Default = 1.14e-6.
 #'
-#' @return Q_pressflow_air returns the flow:
+#' @return pressflow returns the flow under pressure:
 #' \describe{
 #'   \item{Q}{Discharge [m^3/s].}
 #'   \item{v}{Flow velocity [m/s].}
@@ -119,11 +135,11 @@ v_pressflow_air <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e
 #'
 #' @examples
 #' # Calculate flow in a pipe under pressure with ks value
-#' Q_pressflow_air(z0 = 415, z1 = 413, h0 = 3, L = 20, Di = 1, ks = 0.01,
+#' pressflow(z0 = 415, z1 = 413, h0 = 3, L = 20, Di = 1, ks = 0.01,
 #'   calc_lam = "ks")
 #'
 #' # Calculate flow in rectangle under pressure with kst value
-#' Q_pressflow_air(z0 = 415, z1 = 413, h0 = 3, L = 20, b = 2, h = 1, kst = 60,
+#' pressflow(z0 = 415, z1 = 413, h0 = 3, L = 20, b = 2, h = 1, kst = 60,
 #'   calc_lam = "kst")
 #'
 #' @export
@@ -131,8 +147,8 @@ v_pressflow_air <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, xi_e
 
 
 
-Q_pressflow_air <- function(z0, z1, h0, Di = NULL, h = NULL, b = NULL, L, ks = NULL,
-                            kst, xi_e = 0.5, nu = 1.31e-6, calc_lam = 'kst') {
+pressflow <- function(z0, z1, h0, Di = NULL, h = NULL, b = NULL, L, ks = NULL,
+                            kst, xi_e = 0.5, nu = 1.14e-6, calc_lam = 'kst') {
 
   if (is.null(b) & !is.null(h)) {
     warning("if h is not NULL, b must not be NULL")
@@ -154,7 +170,7 @@ Q_pressflow_air <- function(z0, z1, h0, Di = NULL, h = NULL, b = NULL, L, ks = N
     Di <- d_aequiv(b, h)
   }
 
-  v <- v_pressflow_air(z0 = z0, z1 = z1, h0 = h0, Di = Di, h = h, b = b, L = L,
+  v <- pressflow_velocity(z0 = z0, z1 = z1, h0 = h0, Di = Di, h = h, b = b, L = L,
                        kst = kst, ks = ks, xi_e = xi_e, nu = nu, calc_lam = calc_lam)
 
   q <- if (!is.null(b)) {
@@ -167,10 +183,50 @@ Q_pressflow_air <- function(z0, z1, h0, Di = NULL, h = NULL, b = NULL, L, ks = N
 }
 
 
-# h pressflow to air (case 1)
+# Backwater Height Upstream A Inlet Under Pressure (Case 1)
 # --------------------------------------------------------------
-h_pressflow_air <- function(z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NULL,
-                            kst, xi_e = 0.5, nu = 1.31e-6, calc_lam = 'kst') {
+#' @title Backwater Height Upstream A Inlet Under Pressure (Bernoulli)
+#' @name pressflow_depth
+#' @description Calculates the backwater height upstream the inlet of a pipe or
+#' a rectangle under pressure (Bernoulli). The outlet is not submerged, e.g.,
+#' the exit loss equals 0.
+#' @usage pressflow_depth(
+#'   z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NULL, kst,
+#'   xi_e = 0.5, nu = 1.14e-6, calc_lam = "kst"
+#' )
+#' @param z0 Absolute height of upper gate – upstream of the inlet [m.a.s.l].
+#' @param z1 Absolute height of the pipe/rectangle vertical middle axis at
+#' lower gate [m.a.s.l].
+#' @param Q Flow [m^3/s].
+#' @param Di Diameter of pipe [m]. If Di is specified, h and b must be NULL.
+#' @param h Height of rectangle [m]. If h is specified, Di must be NULL.
+#' @param b Width of rectangle [m]. If b is specified, Di must be NULL.
+#' @param L Length of pipe [m].
+#' @param ks Equivalent sand roughness [m].
+#' @param kst Roughness [m^(1/3)/s].
+#' @param calc_lam Defines if lambda should be calculated with ks or kst.
+#' @param xi_e Entrance loss [-]. Default = 0.5.
+#' @param nu Kinematic viscosity [m^2/s]. Default = 1.14e-6.
+#'
+#' @return Returns the backwater height upstream the inlet:
+#' \describe{
+#'   \item{h0}{Water depth upstream the inlet [m].}
+#'   \item{v}{Flow velocity [m/s].}
+#' }
+#'
+#' @examples
+#' # Flow in a pipe under pressure with ks value
+#' pressflow_depth(z0 = 415, z1 = 413, Q = 5.18, L = 20, Di = 1,
+#'                 ks = 0.01, calc_lam = "ks")
+#'
+#' # Flow in a rectangle under pressure with kst value
+#' pressflow_depth(z0 = 415, z1 = 413, Q = 13.7, L = 20, b = 2, h = 1,
+#'                 kst = 60, calc_lam = "kst")
+#'
+#' @export
+
+pressflow_depth <- function(z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NULL,
+                            kst, xi_e = 0.5, nu = 1.14e-6, calc_lam = 'kst') {
 
   if (is.null(b) & !is.null(h)) {
     warning("if h is not NULL, b must not be NULL")
@@ -214,10 +270,54 @@ h_pressflow_air <- function(z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NU
 }
 
 
-# h pressflow under water or influenced by undercurrent (case 2+3)
+
+# Backwater Height Upstream A Inlet Under Pressure (Case 2+3)
 # --------------------------------------------------------------
-h_pressflow_sub <- function(z0, z1, Q, h1, v1, Di = NULL, h = NULL, b = NULL, L,
-                            ks = NULL, kst, xi_a, xi_e = 0.5, nu = 1.31e-6,
+#' @title Backwater Height Upstream A Inlet Under Pressure (Bernoulli)
+#' @name pressflow_depth_sub
+#' @description Calculates the backwater height upstream the inlet of a pipe or
+#' a rectangle under pressure (Bernoulli). The outlet is submerged; hence, an
+#' exit loss (xi_a) has to be specified.
+#' @usage pressflow_depth_sub(
+#'   z0, z1, Q, h1, v1, Di = NULL, h = NULL, b = NULL, L, ks = NULL, kst, xi_a,
+#'   xi_e = 0.5, nu = 1.14e-6, calc_lam = "kst"
+#' )
+#' @param z0 Absolute height of upper gate – upstream of the inlet [m.a.s.l].
+#' @param z1 Absolute height of the pipe/rectangle vertical middle axis at
+#' lower gate [m.a.s.l].
+#' @param Q Flow [m^3/s].
+#' @param h1 	Water depth downstream the outlet [m].
+#' @param v1 Velocity downstream the outlet [m/s].
+#' @param Di Diameter of pipe [m]. If Di is specified, h and b must be NULL.
+#' @param h Height of rectangle [m]. If h is specified, Di must be NULL.
+#' @param b Width of rectangle [m]. If b is specified, Di must be NULL.
+#' @param L Length of pipe [m].
+#' @param ks Equivalent sand roughness [m].
+#' @param kst Roughness [m^(1/3)/s].
+#' @param calc_lam Defines if lambda should be calculated with ks or kst.
+#' @param xi_a Exit loss, according to Borda-Carnot formula (1 - A1/A2)^2 [-].
+#' @param xi_e Entrance loss [-]. Default = 0.5.
+#' @param nu Kinematic viscosity [m^2/s]. Default = 1.14e-6.
+#'
+#' @return Returns the backwater height upstream the inlet:
+#' \describe{
+#'   \item{h0}{Water depth upstream the inlet [m].}
+#'   \item{v}{Flow velocity [m/s].}
+#' }
+#'
+#' @examples
+#' # Flow in a pipe under pressure with ks value
+#' pressflow_depth_sub(z0=415,z1=413,Q=5.18,h1=2,v1=4,L=20,Di=1,ks=0.01,
+#' calc_lam="ks",xi_a=0.5)
+#'
+#' # Flow in a rectangle under pressure with kst value
+#' pressflow_depth_sub(z0=415,z1=413,Q=13.7,h1=2,v1=4,L=20,b=2,h=1,kst=60,
+#' calc_lam="kst",xi_a=0.5)
+#'
+#' @export
+
+pressflow_depth_sub <- function(z0, z1, Q, h1, v1, Di = NULL, h = NULL, b = NULL, L,
+                            ks = NULL, kst, xi_a, xi_e = 0.5, nu = 1.14e-6,
                             calc_lam = 'kst') {
 
   if (is.null(b) & !is.null(h)) {

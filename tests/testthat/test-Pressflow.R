@@ -29,18 +29,18 @@ test_that("pressflow_air calculations match expected values", {
   # Test lambda_ks function
   expect_equal(lambda_ks(values$ks, values$Di, 14.539 * 2.4 / (1.31e-6)), 0.0144, tolerance = 0.001)
 
-  # Test v_pressflow_air function
-  expect_equal(v_pressflow_air(z0 = values$z0, z1 = values$z1, h0 = values$h0,
+  # Test pressflow_velocity function
+  expect_equal(pressflow_velocity(z0 = values$z0, z1 = values$z1, h0 = values$h0,
                                b = values$b, h = values$h, L = values$L, ks = values$ks,
                                xi_e = values$xi_e, calc_lam = 'ks'), 14.539, tolerance = 0.001)
 
-  # Test Q_pressflow_air function
-  expect_equal(Q_pressflow_air(z0 = values$z0, z1 = values$z1, h0 = values$h0,
+  # Test pressflow function
+  expect_equal(pressflow(z0 = values$z0, z1 = values$z1, h0 = values$h0,
                                b = values$b, h = values$h, L = values$L, ks = values$ks,
                                xi_e = values$xi_e, calc_lam = 'ks')$Q, 87.23, tolerance = 0.001)
 
-  # Test h_pressflow_air function
-  expect_equal(h_pressflow_air(z0 = values$z0, z1 = values$z1, Q = 87.23,
+  # Test pressflow_depth function
+  expect_equal(pressflow_depth(z0 = values$z0, z1 = values$z1, Q = 87.23,
                                b = values$b, h = values$h, L = values$L, ks = values$ks,
                                xi_e = values$xi_e, calc_lam = 'ks')$h0, 20, tolerance = 0.001)
 })
@@ -72,13 +72,13 @@ setup <- function() {
        Q = Q, h1 = h1, v1 = v1, calc_lam = calc_lam, nu = nu)
 }
 
-# Test case for h_pressflow_sub function
+# Test case for pressflow_depth_sub function
 test_that("pressflow_sub calculations match expected values", {
   # Initialize setup
   values <- setup()
 
-  # Test h_pressflow_sub function
-  expect_equal(h_pressflow_sub(z0 = values$z0, z1 = values$z1, Q = values$Q,
+  # Test pressflow_depth_sub function
+  expect_equal(pressflow_depth_sub(z0 = values$z0, z1 = values$z1, Q = values$Q,
                                h1 = values$h1, v1 = values$v1, b = values$b,
                                h = values$h, L = values$L, ks = values$ks,
                                xi_e = values$xi_e, xi_a = values$xi_a,

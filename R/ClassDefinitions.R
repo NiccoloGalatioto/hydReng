@@ -122,7 +122,7 @@ setGeneric(
 setGeneric("mean_roughness", function(object, h)
   standardGeneric("mean_roughness"))
 
-setGeneric("flow_velocity", function(object,h, J, method="Strickler", nu = 1.24e-6, ...)
+setGeneric("flow_velocity", function(object,h, J, method="Strickler", nu = 1.14e-6, ...)
   standardGeneric("flow_velocity"))
 
 setGeneric("flow_depth", function(object,  Q, J, method="Strickler",

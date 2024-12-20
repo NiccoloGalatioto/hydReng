@@ -337,7 +337,7 @@ setMethod(
 #' @aliases  flow_velocity flow_velocity,CSarbitrary-method flow_velocity,CScircle-method
 #' @description Calculates the flow velocity of a CSarbitrary or CScircle object for a
 #'  given water level and bottom slope under uniform flow conditions.
-#' @usage flow_velocity(object, h, J, method = "Strickler",nu = 1.24e-6,...)
+#' @usage flow_velocity(object, h, J, method = "Strickler",nu = 1.14e-6,...)
 #' @param object A CSarbitrary or CScircle object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope  [-].
@@ -345,7 +345,7 @@ setMethod(
 #'  equal roughness, and method = "Einstein" estimates a mean roughness.
 #'  Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
 #'   according to Prandtl-Coolebrook-White for CScircle objects.
-#' @param nu Kinematic viscosity. Only for CScircle objects
+#' @param nu Kinematic viscosity [m2/s]. Only for CScircle objects
 #' @param ... Additional arguments.
 #' @return Flow velocity [m/s]
 #' @examples
@@ -368,7 +368,7 @@ setMethod(
 
 setMethod(
   "flow_velocity", "CSarbitrary",
-  function(object, h, J, method = "Strickler",nu = 1.24e-6) {
+  function(object, h, J, method = "Strickler",nu = 1.14e-6) {
     # Define variables for velocity calculation
     A <- wetted_area(object, h = h)
     P <- wetted_perimeter(object, h = h)

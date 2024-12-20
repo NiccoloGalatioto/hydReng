@@ -6,7 +6,7 @@
 \alias{flow_velocity,CScircle-method}
 \title{Flow Velocity}
 \usage{
-flow_velocity(object, h, J, method = "Strickler",nu = 1.24e-6,...)
+flow_velocity(object, h, J, method = "Strickler",nu = 1.14e-6,...)
 }
 \arguments{
 \item{object}{A CSarbitrary or CScircle object.}
@@ -20,7 +20,7 @@ equal roughness, and method = "Einstein" estimates a mean roughness.
 Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
  according to Prandtl-Coolebrook-White for CScircle objects.}
 
-\item{nu}{Kinematic viscosity. Only for CScircle objects}
+\item{nu}{Kinematic viscosity [m2/s]. Only for CScircle objects}
 
 \item{...}{Additional arguments.}
 }

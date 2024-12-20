@@ -341,10 +341,8 @@ setMethod(
 #' @param object A CSarbitrary or CScircle object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope  [-].
-#' @param method Method to calculate the roughness. Method = "Strickler" considers
-#'  equal roughness, and method = "Einstein" estimates a mean roughness.
-#'  Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
-#'   according to Prandtl-Coolebrook-White for CScircle objects.
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".
 #' @param nu Kinematic viscosity [m2/s]. Only for CScircle objects
 #' @param ... Additional arguments.
 #' @return Flow velocity [m/s]
@@ -562,9 +560,8 @@ setMethod(
 #' @param object A CSarbitrary or CScircle object.
 #' @param Q Discharge [m^3/s].
 #' @param J Bottom slope [-].
-#' @param method Method to calculate the roughness. Method = "Strickler" considers
-#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
-#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".
 #' @param ret Defines the result returned by the function.
 #' @param plot Logical; if `TRUE`, plots the results.
 #' @return A list containing the following hydraulic variables:
@@ -710,9 +707,8 @@ setMethod(
 #' @param object A CSarbitrary or CScircle object.
 #' @param h Flow depth [m].
 #' @param J Bottom slope [-].
-#' @param method Method to calculate the roughness. Method = "Strickler" considers
-#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
-#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".
 #' @param ret Defines the result returned by the function.
 #' @param plot Logical; if `TRUE`, plots the results.
 #' @return A list containing the following hydraulic variables:
@@ -834,9 +830,8 @@ setMethod(
 #' @usage flow_max(object, J, method = "Strickler", ret = "all", plot = FALSE)
 #' @param object A CSarbitrary or CScircle object.
 #' @param J Bottom slope [-].
-#' @param method Method to calculate the roughness. Method = "Strickler" considers
-#'   equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
-#'   considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".
 #' @param ret Defines the result returned by the function.
 #' @param plot Logical; if TRUE, plots the results.
 #' @return A list containing the following hydraulic variables:
@@ -990,7 +985,8 @@ setMethod(
 #' @param fe Fixed freeboard value to override calculations [m].
 #' @param fe_min Minimum freeboard [m].
 #' @param fe_max Maximum freeboard [m].
-#' @param method Flow calculation method, e.g., "Strickler" or "Einstein".
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) and "Einstein" (mean roughness).
 #' @param ret Definition of the result returned by the function ("all", "Qmax",
 #'   "hmax", "fe", or "v").
 #' @param plot Logical; whether to plot the results.

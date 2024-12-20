@@ -458,8 +458,8 @@ setMethod("flow_max", "CScircle",
 #' @usage par_fill(object,J,method="Strickler")
 #' @param object A CScircle object.
 #' @param J Bottom slope [-].
-#' @param method Method to calculate the roughness. Method = "Strickler" or
-#'  "Prandtl-Coolebrook-White" are allowed.
+#' @param method Method to calculate the roughness. Allowed are "Strickler"
+#'  (equal roughness) and "Prandtl-Coolebrook-White".
 #' @return Plots of a partial filling diagram of a circular pipe with discharge and flow velocity
 #' @examples
 #' csC <- CScircle(Di = 0.7, ks = 1.5, kSt = 75)

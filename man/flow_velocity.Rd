@@ -15,10 +15,8 @@ flow_velocity(object, h, J, method = "Strickler",nu = 1.14e-6,...)
 
 \item{J}{Bottom slope  [-].}
 
-\item{method}{Method to calculate the roughness. Method = "Strickler" considers
-equal roughness, and method = "Einstein" estimates a mean roughness.
-Method = "Prandtl-Coolebrook-White" considers a roughness-coefficient
- according to Prandtl-Coolebrook-White for CScircle objects.}
+\item{method}{Method to calculate the roughness. Allowed are "Strickler"
+(equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".}
 
 \item{nu}{Kinematic viscosity [m2/s]. Only for CScircle objects}
 

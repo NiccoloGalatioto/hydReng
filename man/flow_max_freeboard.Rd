@@ -32,7 +32,8 @@ according to KOHS; if FALSE, sets fv = 0.}
 
 \item{fe_max}{Maximum freeboard [m].}
 
-\item{method}{Flow calculation method, e.g., "Strickler" or "Einstein".}
+\item{method}{Method to calculate the roughness. Allowed are "Strickler"
+(equal roughness) and "Einstein" (mean roughness).}
 
 \item{ret}{Definition of the result returned by the function ("all", "Qmax",
 "hmax", "fe", or "v").}

@@ -15,9 +15,8 @@ flow(object, h, J, method = "Strickler", ret = "all", plot = FALSE)
 
 \item{J}{Bottom slope [-].}
 
-\item{method}{Method to calculate the roughness. Method = "Strickler" considers
-equal roughness, "Einstein" estimates a mean roughness, and "Prandtl-Coolebrook-White"
-considers a roughness coefficient according to Prandtl-Coolebrook-White for CScircle objects.}
+\item{method}{Method to calculate the roughness. Allowed are "Strickler"
+(equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".}
 
 \item{ret}{Defines the result returned by the function.}
 

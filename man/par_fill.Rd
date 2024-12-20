@@ -12,8 +12,8 @@ par_fill(object,J,method="Strickler")
 
 \item{J}{Bottom slope [-].}
 
-\item{method}{Method to calculate the roughness. Method = "Strickler" or
-"Prandtl-Coolebrook-White" are allowed.}
+\item{method}{Method to calculate the roughness. Allowed are "Strickler"
+(equal roughness) and "Prandtl-Coolebrook-White".}
 }
 \value{
 Plots of a partial filling diagram of a circular pipe with discharge and flow velocity

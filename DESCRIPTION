@@ -1,6 +1,6 @@
 Package: hydReng
 Type: Package
-Title: Toolset For Hydraulic Engineering
+Title: Functions for Hydraulic Engineering
 Version: 0.1.0
 Authors@R: c(
     person("Galatioto", "Niccolo", email = "niccolo.galatioto@gmail.com", role = c("cre", "aut")),
@@ -12,7 +12,6 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 7.3.2
-Remotes: NiccoloGalatioto/hydReng
 URL: https://github.com/NiccoloGalatioto/hydReng
 BugReports: https://github.com/NiccoloGalatioto/hydReng/issues
 Suggests: 

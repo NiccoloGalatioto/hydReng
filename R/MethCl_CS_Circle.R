@@ -170,7 +170,7 @@ setMethod("flow_depth", "CScircle",
                 }
 
                 #search root
-                if(is.numeric(try(uniroot(fcn, interval=c(10^-5, Di(object)*0.9385), check.conv = TRUE)$root,silent = T))){
+                if(is.numeric(try(uniroot(fcn, interval=c(10^-5, Di(object)*0.9385), check.conv = TRUE)$root,silent = TRUE))){
                   h <- uniroot(fcn, interval=c(10^-5, Di(object)*0.9385), check.conv = TRUE)$root
                   v<-flow_velocity(object, h=h, J=J,method=method)
                 } else{
@@ -224,7 +224,7 @@ setMethod("flow_depth", "CScircle",
             #plot
 
             if(plot==TRUE){
-              try(dev.off(),silent=T)
+              try(dev.off(),silent=TRUE)
 
               if(h<=Di(object)){
 
@@ -234,7 +234,7 @@ setMethod("flow_depth", "CScircle",
                 } else{c(0,h+ v^2/(2*9.81))}
 
 
-                symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=F,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
+                symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=FALSE,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
 
                 lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),c(h,h),col="blue")
                 lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),rep(h+v^2/(2*9.81),2),col="red", lty=4)
@@ -307,7 +307,7 @@ setMethod("flow", "CScircle",
             #plot
 
             if(plot==TRUE){
-              try(dev.off(),silent=T)
+              try(dev.off(),silent=TRUE)
 
               if(h<=Di(object)){
 
@@ -317,7 +317,7 @@ setMethod("flow", "CScircle",
                 } else{c(0,h+ v^2/(2*9.81))}
 
 
-                symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=F,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
+                symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=FALSE,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
 
                 lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),c(h,h),col="blue")
                 lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),rep(h+v^2/(2*9.81),2),col="red", lty=4)
@@ -405,7 +405,7 @@ setMethod("flow_max", "CScircle",
             Q<-Qmax
 
             if(plot==TRUE){
-              try(dev.off(),silent=T)
+              try(dev.off(),silent=TRUE)
 
 
               ylim<-if((h+ v^2/(2*9.81))<Di(object)){
@@ -413,7 +413,7 @@ setMethod("flow_max", "CScircle",
               } else{c(0,h+ v^2/(2*9.81))}
 
 
-              symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=F,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
+              symbols(Di(object)/2,Di(object)/2,circles = Di(object)/2,inches=FALSE,xlim=c(0,Di(object)),ylim=ylim,asp=1, xlab="x [m]", ylab="z [m]")
 
               lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),c(h,h),col="blue")
               lines(c((Di(object)/2)-sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2),(Di(object)/2)+sqrt((Di(object)/2)^2-(abs(Di(object)/2-h))^2)),rep(h+v^2/(2*9.81),2),col="red", lty=4)

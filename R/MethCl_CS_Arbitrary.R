@@ -558,7 +558,7 @@ setMethod(
 #'   a given discharge and bottom slope under uniform flow conditions.
 #' @usage flow_depth(object, Q, J, method = "Strickler", ret = "all", plot = FALSE)
 #' @param object A CSarbitrary or CScircle object.
-#' @param Q Discharge [m^3/s].
+#' @param Q Discharge [m3/s].
 #' @param J Bottom slope [-].
 #' @param method Method to calculate the roughness. Allowed are "Strickler"
 #'  (equal roughness) "Einstein" (mean roughness) and "Prandtl-Coolebrook-White".
@@ -713,7 +713,7 @@ setMethod(
 #' @param plot Logical; if `TRUE`, plots the results.
 #' @return A list containing the following hydraulic variables:
 #' \describe{
-#'   \item{Q}{Discharge [m^3/s].}
+#'   \item{Q}{Discharge [m3/s].}
 #'   \item{v}{Flow velocity [m/s].}
 #'   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
 #'   \item{A}{Wetted area [m^2].}

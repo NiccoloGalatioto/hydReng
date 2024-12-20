@@ -9,7 +9,7 @@ bedload_MPM(dm, J, Rs, B, f_kSt = 0.85, t_crit = 0.047, rho_s = 2650, s = 2.65)
 \arguments{
 \item{dm}{Median grain size [m].}
 
-\item{J}{Slope of the bed [-].}
+\item{J}{Bottom slope [-].}
 
 \item{Rs}{Hydraulic radius [m].}
 
@@ -24,10 +24,7 @@ bedload_MPM(dm, J, Rs, B, f_kSt = 0.85, t_crit = 0.047, rho_s = 2650, s = 2.65)
 \item{s}{Relative solid density [-] (default: 2.65).}
 }
 \value{
-Returns the following variable:
-\describe{
-  \item{Gb}{Bedload transport rate [kg/s].}
-}
+Returns the bedload transport rate [kg/s].
 }
 \description{
 Calculates the bedload transport capacity using the formula by

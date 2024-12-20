@@ -29,7 +29,7 @@ mu_gate <- function(psi, a, h0) {
 # flow_gate --> Bollrich 5. Aufl. (8.23)
 #--------------------------------------------------------------
 
-#' @title Discharge at Underflow Gate
+#' @title Discharge At Underflow Gate
 #' @description Calculates the discharge through a gate under free or submerged
 #'   conditions.
 #' @usage flow_gate(a, h0, B, alpha, h2 = NULL, ret = "Q")
@@ -82,7 +82,7 @@ flow_gate <- function(a, h0, B, alpha, h2 = NULL, ret = "Q") {
 # flow_depth_gate --> Bollrich 5. Aufl. (8.23)
 #--------------------------------------------------------------
 
-#' @title Calculate Water Depth Upstream Of A Inlet
+#' @title Water Depth Upstream Of Gate
 #' @description Calculates the upstream water depth for a gate based on given
 #'   discharge and gate parameters.
 #' @usage flow_depth_gate(a, Q, B, alpha, h2 = NULL, ret = "h0")

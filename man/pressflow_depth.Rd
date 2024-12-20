@@ -43,8 +43,8 @@ Returns the backwater height upstream the inlet:
 }
 }
 \description{
-Calculates the backwater height upstream the inlet of a pipe or
-a rectangle under pressure (Bernoulli). The outlet is not submerged, e.g.,
+Calculates the backwater height upstream of an inlet (pipe or
+rectangle) under pressure (Bernoulli). The outlet is not submerged, e.g.,
 the exit loss equals 0.
 }
 \examples{

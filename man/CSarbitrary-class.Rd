@@ -7,7 +7,8 @@
 \title{CSarbitrary Class}
 \description{
 Defines a cross-section class with arbitrary geometry for
-  hydraulic calculations.
+  hydraulic calculations. For single open channels only, avoid geometries
+  with multiple channels.
 }
 \section{Slots}{
 
@@ -22,9 +23,9 @@ Defines a cross-section class with arbitrary geometry for
 
 \item{\code{kSt_B}}{Roughness of the channel bed [m^(1/3)/s].}
 
-\item{\code{kSt_l}}{Roughness of the left bank (Strickler) [m^(1/3)/s].}
+\item{\code{kSt_l}}{Roughness of the left bank [m^(1/3)/s].}
 
-\item{\code{kSt_r}}{Roughness of the right bank (Strickler) [m^(1/3)/s].}
+\item{\code{kSt_r}}{Roughness of the right bank [m^(1/3)/s].}
 }}
 
 \examples{

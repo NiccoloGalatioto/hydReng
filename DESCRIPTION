@@ -1,12 +1,12 @@
 Package: hydReng
 Type: Package
-Title: Toolset for Hydraulic Engineering
+Title: Toolset For Hydraulic Engineering
 Version: 0.1.0
 Authors@R: c(
     person("Galatioto", "Niccolo", email = "niccolo.galatioto@gmail.com", role = c("cre", "aut")),
     person("Bühlmann", "Marius", email = "marius.buehlmann@axpo.com", role = "aut"),
     person("", "HOLINGER AG",email="info@holinger.com", role = c("cph", "fnd")))
-Description: A collection of tools and functions designed for hydraulic engineering tasks, 
+Description: A collection of tools and functions for hydraulic engineering tasks, 
  including flow analysis, channel design, and hydrodynamic calculations.
 License: GPL-3
 Encoding: UTF-8

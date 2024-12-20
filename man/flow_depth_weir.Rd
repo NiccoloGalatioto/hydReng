@@ -2,7 +2,7 @@
 % Please edit documentation in R/Weir.R
 \name{flow_depth_weir}
 \alias{flow_depth_weir}
-\title{Flow Depth at Weir Crest}
+\title{Flow Depth At Weir Crest}
 \usage{
 flow_depth_weir(B, Q, w = Inf, mu = 0.73)
 }

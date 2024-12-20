@@ -25,7 +25,7 @@ flow(object, h, J, method = "Strickler", ret = "all", plot = FALSE)
 \value{
 A list containing the following hydraulic variables:
 \describe{
-  \item{Q}{Discharge [m^3/s].}
+  \item{Q}{Discharge [m3/s].}
   \item{v}{Flow velocity [m/s].}
   \item{kSt_m}{Mean roughness [m^(1/3)/s] (if method = "Einstein").}
   \item{A}{Wetted area [m^2].}

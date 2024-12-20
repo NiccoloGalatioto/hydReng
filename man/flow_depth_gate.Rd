@@ -2,7 +2,7 @@
 % Please edit documentation in R/Gate.R
 \name{flow_depth_gate}
 \alias{flow_depth_gate}
-\title{Calculate Water Depth Upstream Of A Inlet}
+\title{Water Depth Upstream Of Gate}
 \usage{
 flow_depth_gate(a, Q, B, alpha, h2 = NULL, ret = "h0")
 }

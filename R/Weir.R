@@ -2,7 +2,7 @@
 # Functions for calculating flow over a Weir
 #------------------------------------------------------------------------------
 
-#' @title Flow Depth at Weir Crest
+#' @title Flow Depth At Weir Crest
 #' @description Calculates the height difference between the upstream water
 #'   level and the weir crest.
 #' @usage flow_depth_weir(B, Q, w = Inf, mu = 0.73)

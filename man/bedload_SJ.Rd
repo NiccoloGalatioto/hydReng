@@ -2,39 +2,38 @@
 % Please edit documentation in R/Bedload.R
 \name{bedload_SJ}
 \alias{bedload_SJ}
-\title{Bedload transport capacity according to Smart and Jaeggi}
+\title{Bedload Transport Capacity (Smart and Jaeggi)}
 \usage{
 bedload_SJ(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650,
 s_value = 2.65)
 }
 \arguments{
-\item{d30}{Grain size distribution parameter (d30) [m]}
+\item{d30}{Grain size distribution parameter [m].}
 
-\item{dm}{Median grain size (dm) [m]}
+\item{dm}{Median grain size [m].}
 
-\item{d90}{Grain size distribution parameter (d90) [m]}
+\item{d90}{Grain size distribution parameter [m].}
 
-\item{J}{Slope of the bed [-]}
+\item{J}{Bottom slope [-].}
 
-\item{Rs}{Hydraulic radius [m]}
+\item{Rs}{Hydraulic radius [m].}
 
-\item{um}{Mean flow velocity [m/s]}
+\item{um}{Mean flow velocity [m/s].}
 
-\item{B}{Bottom width [m]}
+\item{B}{Bottom width [m].}
 
-\item{t_crit}{Critical shear stress [-] (default: 0.05)}
+\item{t_crit}{Critical shear stress [-] (default: 0.05).}
 
-\item{rho_s}{Density of bedload material [kg/m3] (default: 2650)}
+\item{rho_s}{Density of bedload material [kg/m3] (default: 2650).}
 
-\item{s_value}{Relative solid density [-] (default: 2.65)}
+\item{s_value}{Relative solid density [-] (default: 2.65).}
 }
 \value{
-bedload_SJ returns the following variable:
-\item{Gb}{Bedload transport rate [kg/s]}
+bedload_SJ returns the bedload transport rate [kg/s]
 }
 \description{
 Calculates the bedload transport capacity based on the formula by Smart and
-Jaeggi (1983). This formula is valid for slopes between 0.005 and 0.2.
+Jaeggi (1983). This formula is recommended for slopes between 0.005 and 0.2.
 }
 \examples{
 d30 <- 0.05

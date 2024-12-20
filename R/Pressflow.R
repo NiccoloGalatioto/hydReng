@@ -127,7 +127,7 @@ pressflow_velocity <- function(z0, z1, h0, Di, b = NULL, h = NULL, L, ks, kst, x
 #' @param xi_e Entrance loss [-]. Default = 0.5.
 #' @param nu Kinematic viscosity [m2/s]. Default = 1.14e-6.
 #'
-#' @return pressflow returns the flow under pressure:
+#' @return Pressflow returns the flow under pressure:
 #' \describe{
 #'   \item{Q}{Discharge [m^3/s].}
 #'   \item{v}{Flow velocity [m/s].}
@@ -187,8 +187,8 @@ pressflow <- function(z0, z1, h0, Di = NULL, h = NULL, b = NULL, L, ks = NULL,
 # --------------------------------------------------------------
 #' @title Backwater Height Upstream A Inlet Under Pressure (Bernoulli)
 #' @name pressflow_depth
-#' @description Calculates the backwater height upstream the inlet of a pipe or
-#' a rectangle under pressure (Bernoulli). The outlet is not submerged, e.g.,
+#' @description Calculates the backwater height upstream of an inlet (pipe or
+#' rectangle) under pressure (Bernoulli). The outlet is not submerged, e.g.,
 #' the exit loss equals 0.
 #' @usage pressflow_depth(
 #'   z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NULL, kst,
@@ -275,8 +275,8 @@ pressflow_depth <- function(z0, z1, Q, Di = NULL, h = NULL, b = NULL, L, ks = NU
 # --------------------------------------------------------------
 #' @title Backwater Height Upstream A Inlet Under Pressure (Bernoulli)
 #' @name pressflow_depth_sub
-#' @description Calculates the backwater height upstream the inlet of a pipe or
-#' a rectangle under pressure (Bernoulli). The outlet is submerged; hence, an
+#' @description Calculates the backwater height upstream of an inlet (pipe or
+#' rectangle) under pressure (Bernoulli). The outlet is submerged; hence, an
 #' exit loss (xi_a) has to be specified.
 #' @usage pressflow_depth_sub(
 #'   z0, z1, Q, h1, v1, Di = NULL, h = NULL, b = NULL, L, ks = NULL, kst, xi_a,

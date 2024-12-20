@@ -2,7 +2,7 @@
 % Please edit documentation in R/Gate.R
 \name{flow_gate}
 \alias{flow_gate}
-\title{Discharge at Underflow Gate}
+\title{Discharge At Underflow Gate}
 \usage{
 flow_gate(a, h0, B, alpha, h2 = NULL, ret = "Q")
 }

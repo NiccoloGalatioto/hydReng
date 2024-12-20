@@ -11,7 +11,7 @@ flow_depth(object, Q, J, method = "Strickler", ret = "all", plot = FALSE)
 \arguments{
 \item{object}{A CSarbitrary or CScircle object.}
 
-\item{Q}{Discharge [m^3/s].}
+\item{Q}{Discharge [m3/s].}
 
 \item{J}{Bottom slope [-].}
 

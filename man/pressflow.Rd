@@ -34,7 +34,7 @@ lower gate [m.a.s.l].}
 \item{calc_lam}{Defines if lambda should be calculated with ks or kst.}
 }
 \value{
-pressflow returns the flow under pressure:
+Pressflow returns the flow under pressure:
 \describe{
   \item{Q}{Discharge [m^3/s].}
   \item{v}{Flow velocity [m/s].}

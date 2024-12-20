@@ -2,7 +2,8 @@
 
 export(CSarbitrary)
 export(CScircle)
-export(Gb_SJ)
+export(bedload_MPM)
+export(bedload_SJ)
 export(d_aequiv)
 export(flow_depth_gate)
 export(flow_depth_weir)

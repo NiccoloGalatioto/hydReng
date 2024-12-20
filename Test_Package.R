@@ -25,7 +25,7 @@ devtools::check()
 # Run good practice checks
 detach("package:hydReng", unload = TRUE)
 goodpractice::gp()
-tools::showNonASCIIfile("C:/Users/NICCOLO/Documents/R/hydReng/R/MethCl_CS_Arbitrary.R")
+tools::showNonASCIIfile("C:/Users/NICCOLO/Documents/R/hydReng/R/Gate.R")
 
 #Run spell check
 spell_check_package()

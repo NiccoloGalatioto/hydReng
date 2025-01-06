@@ -68,7 +68,7 @@ bedload_SJ <- function(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650,
 #' @param J Bottom slope [-].
 #' @param Rs Hydraulic radius [m].
 #' @param B Bottom width [m].
-#' @param f_kSt Friction factor (default: 0.85).
+#' @param f_kSt Friction factor = (k_StS / k_Str)^(3/2) (default: 0.85).
 #' @param t_crit Critical shear stress [-] (default: 0.047).
 #' @param rho_s Density of bedload material [kg/m3] (default: 2650).
 #' @param s Relative solid density [-] (default: 2.65).
@@ -77,8 +77,7 @@ bedload_SJ <- function(d30, dm, d90, J, Rs, um, B, t_crit = 0.05, rho_s = 2650,
 #' Returns the bedload transport rate [kg/s].
 #'
 #' @references
-#' Meyer-Peter, E., & Müller, R. (1948). Formulas for Bed-Load Transport.
-#' Second Meeting 1AHSR, Appendix 2, Stockholm, 39-64.
+#' Bezzola, G.R. (2012). Vorlesungsmanuskript Flussbau. ETH Zürich, Versuchsanstalt für Wasserbau, Hydrologie und Glaziologie VAW.
 #'
 #' @examples
 #' bedload_MPM(dm = 0.1, J = 0.01, Rs = 1.5, B = 20)

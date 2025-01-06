@@ -15,7 +15,7 @@ bedload_MPM(dm, J, Rs, B, f_kSt = 0.85, t_crit = 0.047, rho_s = 2650, s = 2.65)
 
 \item{B}{Bottom width [m].}
 
-\item{f_kSt}{Friction factor (default: 0.85).}
+\item{f_kSt}{Friction factor = (k_StS / k_Str)^(3/2) (default: 0.85).}
 
 \item{t_crit}{Critical shear stress [-] (default: 0.047).}
 
@@ -36,6 +36,5 @@ bedload_MPM(dm = 0.1, J = 0.01, Rs = 1.5, B = 20, t_crit = 0.06)
 
 }
 \references{
-Meyer-Peter, E., & Müller, R. (1948). Formulas for Bed-Load Transport.
-Second Meeting 1AHSR, Appendix 2, Stockholm, 39-64.
+Bezzola, G.R. (2012). Vorlesungsmanuskript Flussbau. ETH Zürich, Versuchsanstalt für Wasserbau, Hydrologie und Glaziologie VAW.
 }

@@ -97,7 +97,7 @@ setMethod("flow_velocity", "CScircle",
 
             if (method == "Strickler") {
               if (!is.numeric(kSt(object))) {
-                warning("kSt is missing")
+                warning("kSt is missing but mandatory for method 'Strickler'")
                 return(NULL)
               }
               A <- wetted_area(object, h = h)
@@ -107,7 +107,7 @@ setMethod("flow_velocity", "CScircle",
 
             else if (method == "Prandtl-Coolebrook-White") {
               if (!is.numeric(ks(object))) {
-                warning("ks is missing")
+                warning("ks is missing but mandatory for method 'Prandtl-Coolebrook-White'")
                 return(NULL)
               }
               A <- wetted_area(object, h = h)
@@ -155,7 +155,7 @@ setMethod("flow_depth", "CScircle",
             if(method=="Strickler"){
 
               if(!is.numeric(kSt(object))){
-                warning("kSt is missing")
+                warning("kSt is missing but mandatory for method 'Strickler'")
                 return(NULL)
               }
 
@@ -189,7 +189,7 @@ setMethod("flow_depth", "CScircle",
             if(method=="Prandtl-Coolebrook-White"){           #Prandtl-Coolebrook-White according to SIA 190
 
               if(!is.numeric(ks(object))){
-                warning("ks is missing")
+                warning("ks is missing but mandatory for method 'Prandtl-Coolebrook-White'")
                 return(NULL)
               }
 
@@ -279,7 +279,7 @@ setMethod("flow", "CScircle",
             if(method=="Strickler"){
 
               if(!is.numeric(kSt(object))){
-                warning("kSt is missing")
+                warning("kSt is missing but mandatory for method 'Strickler'")
                 return(NULL)
               }
 
@@ -292,7 +292,7 @@ setMethod("flow", "CScircle",
             if(method=="Prandtl-Coolebrook-White"){    #Prandtl-Coolebrook-White according to SIA 190
 
               if(!is.numeric(ks(object))){
-                warning("ks is missing")
+                warning("ks is missing but mandatory for method 'Prandtl-Coolebrook-White'")
                 return(NULL)
               }
 
@@ -366,7 +366,7 @@ setMethod("flow_max", "CScircle",
             if(method=="Strickler"){
 
               if(!is.numeric(kSt(object))){
-                warning("kSt is missing")
+                warning("kSt is missing but mandatory for method 'Strickler'")
                 return(NULL)
               }
 
@@ -385,7 +385,7 @@ setMethod("flow_max", "CScircle",
             if(method=="Prandtl-Coolebrook-White"){    #Prandtl-Coolebrook-White according to SIA 190
 
               if(!is.numeric(ks(object))){
-                warning("ks is missing")
+                warning("ks is missing but mandatory for method 'Prandtl-Coolebrook-White'")
                 return(NULL)
               }
 
@@ -476,7 +476,7 @@ setMethod("par_fill", "CScircle",
             if(method=="Strickler"){
 
               if(!is.numeric(kSt(object))){
-                warning("kSt is missing")
+                warning("kSt is missing but mandatory for method 'Strickler'")
                 return(NULL)
               }
 
@@ -493,7 +493,7 @@ setMethod("par_fill", "CScircle",
             if(method=="Prandtl-Coolebrook-White"){
 
               if(!is.numeric(ks(object))){
-                warning("ks is missing")
+                warning("ks is missing but mandatory for method 'Prandtl-Coolebrook-White'")
                 return(NULL)
               }
 

@@ -17,9 +17,9 @@ Defines a cross-section class with arbitrary geometry for
 
 \item{\code{z}}{A numeric vector of z-coordinates [m].}
 
-\item{\code{xb_l}}{X-coordinate of the left bank bottom [m].}
+\item{\code{xb_l}}{x-coordinate of the left bank bottom [m].}
 
-\item{\code{xb_r}}{X-coordinate of the right bank bottom [m].}
+\item{\code{xb_r}}{x-coordinate of the right bank bottom [m].}
 
 \item{\code{kSt_B}}{Roughness of the channel bed [m^(1/3)/s].}
 

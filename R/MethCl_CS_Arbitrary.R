@@ -536,11 +536,10 @@ setMethod(
   function(object, v, h) {
 
     A <- wetted_area(object, h = h)
-    Q <- v * A
     delta_A <- (wetted_area(object, h = h + 0.01) -
                   wetted_area(object, h = h - 0.01)) / (2 * 0.01)
 
-    Fr <- (Q / sqrt(9.81 * A^3)) * sqrt(delta_A)
+    Fr <- v/sqrt(9.81*A/delta_A)
 
     return(Fr)
   }

@@ -135,6 +135,7 @@ setMethod("froude_number", "CScircle",
 
             A <- wetted_area(object, h=h)
             Q <- v*A
+
             Fr<-Q/sqrt(9.81*Di(object)*h^4)
             return(Fr)
 

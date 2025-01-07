@@ -11,8 +11,8 @@ setClassUnion("numeric_or_null", c("numeric", "NULL"))
 #'   with multiple channels.
 #' @slot x A numeric vector of x-coordinates [m].
 #' @slot z A numeric vector of z-coordinates [m].
-#' @slot xb_l X-coordinate of the left bank bottom [m].
-#' @slot xb_r X-coordinate of the right bank bottom [m].
+#' @slot xb_l x-coordinate of the left bank bottom [m].
+#' @slot xb_r x-coordinate of the right bank bottom [m].
 #' @slot kSt_B Roughness of the channel bed [m^(1/3)/s].
 #' @slot kSt_l Roughness of the left bank [m^(1/3)/s].
 #' @slot kSt_r Roughness of the right bank [m^(1/3)/s].

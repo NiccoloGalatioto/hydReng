@@ -6,3 +6,4 @@
 ^.github
 ^Test_Package.R
 ^.gitignore
+^CRAN-SUBMISSION$

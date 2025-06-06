@@ -97,6 +97,151 @@ block_size <- function(h, h_z, J, gamma, psi,
   }
 }
 
+#------------------------------------------------------------------------------
+# Filterlayer
+#------------------------------------------------------------------------------
+#' Calculate grain size distribution of a filter layer
+#'
+#' Tool to calculate the range of the grain size distribution of a filter layer.
+#'
+#' @param d15B Numeric. d15 of block [mm].
+#' @param d50B Numeric. d50 of block [mm].
+#' @param d15U Numeric. d15 of soil [mm].
+#' @param d50U Numeric. d50 of soil [mm].
+#' @param d85U Numeric. d85 of soil [mm].
+#' @param dmax Numeric. Maximum grain diameter of filter layer [mm].
+#' @param plot Logical. If TRUE, the results are plotted (default is TRUE).
+#' @param fuller Logical. If TRUE, adds curves of Fuller distributions with
+#'   exponents 0.5 < q < 1.5 to the plot. For an ideal grain size distribution,
+#'   q is estimated as 0.5 (default is FALSE).
+#'
+#'
+#' @return A list with the following components:
+#'   \item{d15min}{Minimum d15 of filter layer [mm].}
+#'   \item{d15max}{Maximum d15 of filter layer [mm].}
+#'   \item{d50min}{Minimum d50 of filter layer [mm].}
+#'   \item{d50max}{Maximum d50 of filter layer [mm].}
+#'   \item{d85min}{Minimum d85 of filter layer [mm].}
+#'
+#' @importFrom graphics abline text
+#' @importFrom grDevices rainbow terrain.colors
+#'
+#' @examples
+#' # Calculate range of the grain size distribution
+#' filterlayer(1000, 1500, 5, 10, 20, 400)
+#'
+#' # Calculate range of the grain size distribution and add Fuller curves
+#' filterlayer(1000, 1500, 5, 10, 20, 400, fuller = TRUE)
+#'
+#' @export
+#'
+
+filterlayer <- function(d15B, d50B, d15U, d50U, d85U, dmax = 400, plot = TRUE,
+                        fuller = FALSE) {
+  d15F_min1 <- d15B / 20
+  d15F_max1 <- d15B / 5
+  d85F_min1 <- d15B / 5
+  d50F_min1 <- d50B / 25
+
+  d15F_max2_1 <- d15U * 20
+  d15F_min2 <- d15U * 5
+  d15F_max2_2 <- d85U * 5
+  d50F_max2 <- d50U * 25
+
+  d15F_max2 <- min(d15F_max2_1, d15F_max2_2)
+
+  if (plot) {
+    plot(
+      c(d15F_min1, d15F_max1, d85F_min1, d50F_min1),
+      c(0.15, 0.15, 0.85, 0.5),
+      xlim = c(0.01, 1500),
+      ylim = c(0.001, 1),
+      log = "x",
+      col = "blue",
+      xlab = "grain size [mm]",
+      ylab = "%",
+      main = "Specification of filterlayer",
+      xaxt = "n"
+    )
+    axis(1, at = 10 ^ (-4:3), labels = 10 ^ (-4:3))
+    points(c(d15F_min2, d15F_max2, d50F_max2), c(0.15, 0.15, 0.5),
+           col = "blue", pch = 16)
+    points(c(d15B, d50B), c(0.15, 0.5), pch = 15)
+    points(c(d15U, d50U, d85U), c(0.15, 0.5, 0.85), pch = 17)
+    abline(v = c(1:10 %o% 10 ^ (-3:3)), col = "gray")
+    abline(h = c(0.2, 0.4, 0.6, 0.8), col = "gray")
+
+    if (fuller) {
+      vfull <- seq(0.5, 1.5, 0.2)
+      for (i in seq_along(vfull)) {
+        vfuller <- numeric(dmax)
+        for (j in seq_len(dmax)) {
+          vfuller[j] <- (j / dmax) ^ vfull[i]
+        }
+        lines(1:dmax, vfuller, col = rainbow(length(vfull))[i])
+      }
+    }
+
+    polygon(
+      c(max(d15F_min1, d15F_min2), min(d15F_max2, d15F_max1),
+        min(d15F_max2, d15F_max1), max(d15F_min1, d15F_min2)),
+      c(0.16, 0.16, 0.14, 0.14),
+      border = "red"
+    )
+    polygon(c(d50F_min1, d50F_max2, d50F_max2, d50F_min1),
+            c(0.51, 0.51, 0.49, 0.49), border = "red")
+    polygon(c(d85F_min1, 1500, 1500, d85F_min1),
+            c(0.86, 0.86, 0.84, 0.84), border = "red")
+
+    polygon(c(0.002, 0.002, 0.06, 0.06), c(0, 1, 1, 0),
+            col = terrain.colors(4, alpha = 0.2)[1])
+    polygon(c(0.06, 0.06, 2, 2), c(0, 1, 1, 0),
+            col = terrain.colors(4, alpha = 0.2)[2])
+    polygon(c(2, 2, 60, 60), c(0, 1, 1, 0),
+            col = terrain.colors(4, alpha = 0.2)[3])
+    polygon(c(60, 60, 10000, 10000), c(0, 1, 1, 0),
+            col = terrain.colors(4, alpha = 0.2)[4])
+
+    text(0.001, 0.95, "Clay")
+    text(0.01, 0.95, "Silt")
+    text(0.4, 0.95, "Sand")
+    text(8, 0.95, "Gravel")
+    text(400, 0.95, "Cobble")
+
+    if (!fuller) {
+      legend(
+        "bottomleft",
+        legend = c("Soil", "Block", "Criterion 1", "Criterion 2",
+                   "Distribution Range"),
+        pch = c(17, 15, 1, 16, 0),
+        col = c("black", "black", "blue", "blue", "red"),
+        cex = 0.8
+      )
+    } else {
+      legend(
+        "bottomleft",
+        legend = c(
+          "Soil", "Block", "Criterion 1", "Criterion 2", "Distribution Range",
+          "Fuller Exponent", "0.5", "0.7", "0.9", "1.1", "1.3", "1.5"
+        ),
+        pch = c(17, 15, 1, 16, 0, rep(NA, 7)),
+        lty = c(rep(NA, 6), rep(1, 6)),
+        col = c("black", "black", "blue", "blue", "red", NA, rainbow(6)),
+        cex = 0.8
+      )
+    }
+  }
+
+  list(
+    d15min = d15F_min1,
+    d15max = d15F_max2,
+    d50min = d50F_min1,
+    d50max = d50F_max2,
+    d85min = d85F_min1
+  )
+}
+
+
 
 #------------------------------------------------------------------------------
 # Superelevation of water table in curve (Bezzola 2012, Kap. 11.4)

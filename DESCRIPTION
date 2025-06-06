@@ -1,7 +1,7 @@
 Package: hydReng
 Type: Package
 Title: Hydraulic Engineering Tools
-Version: 0.1.0
+Version: 1.0.0
 Authors@R: c(
     person("Galatioto", "Niccolo", email = "niccolo.galatioto@gmail.com", role = c("cre", "aut")),
     person("Bühlmann", "Marius", email = "marius.buehlmann@axpo.com", role = "aut"),

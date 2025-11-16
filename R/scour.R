@@ -30,7 +30,7 @@
 #' d95 of grain size distribution [mm]
 #'
 #' @param ful_ov
-#' defines if the overfall is complete or incomplete. T and F are valid values
+#' defines if the overfall is complete or incomplete. TRUE and FALSE are valid values
 #' [logical]
 #'
 #' @param method
@@ -40,7 +40,7 @@
 #' according to "Tschopp".
 #'
 #' @param bedload
-#' Consider bedload transportation. If bedload = T, the scour depth "TG" and
+#' Consider bedload transportation. If bedload = TRUE, the scour depth "TG" and
 #' "SG" are calculated additionally which consider bedload transport.
 #'
 #' @return
@@ -402,9 +402,9 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
     K<-2.95*(rm/bm)-0.7*sigma-29.3*(h/bm)+2.7*Fr+3.4
 
     if((rm/bm)>=2 & (rm/bm)<=6){
-      val<-T
+      val<-TRUE
     }else{
-      val<-F
+      val<-FALSE
     }
     T0<-h*(r/rm)^K
     S<-T0-h
@@ -479,7 +479,7 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 #' @param l length of the groyne (parallel to the river)[m]
 #' @param fs safety factor [-]
 #' @param method method to calculate scour depth. valid values are "Froehlich"
-#' @param bedload Consicer bedload transportation iff bedload =T
+#' @param bedload Consicer bedload transportation iff bedload =TRUE
 #'
 #' @return
 #' \item{T0}{water table at maximal scour depth [m]}
@@ -551,7 +551,7 @@ scour_groyne <- function(v,Fr,B,h,J,L,d16,dm,d84,Ks,delta,Kb=NULL,l=NULL, fs=0,
 
   # if(method=="Hoffmanns"){
   #
-  #   if(bedload==F){
+  #   if(bedload==FALSE){
   #     warning("bedload must be TRUE")
   #     return(NULL)
   #   }

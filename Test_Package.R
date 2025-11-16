@@ -4,6 +4,7 @@ library(testthat)  # Unit Testing for R
 library(rhub)      # R Hub for Checking Package Builds
 library(goodpractice)  # Package to Assess Package Quality
 library(usethis)
+library(revdepcheck)
 
 
 # Document and test the package
@@ -24,6 +25,8 @@ Sys.setenv('_R_CHECK_SYSTEM_CLOCK_' = 0)
 devtools::check()
 devtools::check_win_devel()
 
+#check dependencies
+revdepcheck::revdep_check()
 
 # Run good practice checks
 
@@ -37,8 +40,6 @@ rhub::rhub_check(platform = "windows")
 rhub::rhub_check(platform = "linux")
 rhub::rhub_check(platform = "macos")
 
-# Add comments for CRAN submission
-usethis::use_cran_comments()
 
 # For submitting
 #devtools::release()

@@ -21,7 +21,7 @@ scour_vert(
 
 \item{d95}{d95 of grain size distribution [mm]}
 
-\item{ful_ov}{defines if the overfall is complete or incomplete. T and F are valid values
+\item{ful_ov}{defines if the overfall is complete or incomplete. TRUE and FALSE are valid values
 [logical]}
 
 \item{method}{method to calculate scour depth. valid values are "Kolatus" or "Tschopp".
@@ -29,7 +29,7 @@ Independent of the chosen method, the position of the scour is calculated
 according to "Kolatus" and the scour depth considering bedload is calculated
 according to "Tschopp".}
 
-\item{bedload}{Consider bedload transportation. If bedload = T, the scour depth "TG" and
+\item{bedload}{Consider bedload transportation. If bedload = TRUE, the scour depth "TG" and
 "SG" are calculated additionally which consider bedload transport.}
 }
 \value{

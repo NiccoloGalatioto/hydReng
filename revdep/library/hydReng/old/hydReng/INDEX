@@ -1,0 +1,25 @@
+CSarbitrary-class       CSarbitrary Class
+CScircle-class          CScircle Class
+bedload_MPM             Bedload Transport Capacity (Meyer-Peter Müller)
+bedload_SJ              Bedload Transport Capacity (Smart and Jaeggi)
+d_aequiv                Equivalent Hydraulic Diameter
+flow                    Flow
+flow_depth              Flow Depth
+flow_depth_gate         Water Depth Upstream Of Gate
+flow_depth_weir         Flow Depth At Weir Crest
+flow_gate               Discharge At Underflow Gate
+flow_max                Maximum Flow
+flow_max_freeboard      Maximum Flow Including Freeboard
+flow_velocity           Flow Velocity
+flow_weir               Flow Over Weir Crest
+freeboard               Freeboard Calculation
+froude_number           Froude Number
+mean_roughness          Mean Roughness
+par_fill                Partial Filling Flow Diagram
+pressflow               Flow Under Pressure (Bernoulli)
+pressflow_depth         Backwater Height Upstream A Inlet Under
+                        Pressure (Bernoulli)
+pressflow_depth_sub     Backwater Height Upstream A Inlet Under
+                        Pressure (Bernoulli)
+wetted_area             Wetted Area
+wetted_perimeter        Wetted Perimeter

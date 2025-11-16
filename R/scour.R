@@ -1,5 +1,5 @@
 # ------------------------------------------------------------------------------
-## vertical scour (Bezzola 2012, Kap 11.2)
+## vertical scour
 # ------------------------------------------------------------------------------
 
 #' Scour depth and length (vertical jet)
@@ -204,7 +204,7 @@ scour_vert <- function(Q, B, h, h_u, d90, d95, ful_ov,
 
 
 
-# horizontal scour (Bezzola 2012, Kap 11.2)
+# horizontal scour
 #---------------------------------------------------
 
 #' Scour depth and length (horizontal jet)
@@ -306,7 +306,7 @@ if(method=="Shalash"){
 }
 
 
-# scour in curve (Bezzola 2012, Kap 11.4)
+# scour in curve
 #---------------------------------------------------
 
 #' Scour depth in a curve
@@ -339,7 +339,7 @@ if(method=="Shalash"){
 #' \item{val}{if val = T, the criterion for method "Peter" is fullfilled}
 #'
 #' @references
-#' Bezzola 2012, Kap. 11.2
+#' Bezzola (2012). Vorlesungsmanuskript Flussbau. ETH Zürich.
 #'
 #'
 #' @examples
@@ -454,7 +454,7 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 
 
 
-# scour at groyne (Bezzola 2012, Kap 11.4)
+# scour at groyne
 #---------------------------------------------------
 
 #' Scour depth formed by a groyne
@@ -488,7 +488,7 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 #'   the maximal scour depth  [m]}
 #'
 #' @references
-#' Bezzola 2012, Kap. 11.2
+#' Bezzola (2012). Vorlesungsmanuskript Flussbau. ETH Zürich.
 #'
 #'
 #' @examples

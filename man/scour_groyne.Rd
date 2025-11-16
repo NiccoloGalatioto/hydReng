@@ -87,5 +87,5 @@ scour_groyne(
 
 }
 \references{
-Bezzola 2012, Kap. 11.2
+Bezzola (2012). Vorlesungsmanuskript Flussbau. ETH Zürich.
 }

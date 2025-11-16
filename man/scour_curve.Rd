@@ -27,14 +27,12 @@ scour_curve(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter")
 
 \item{dm}{d50 of grain size distribution [mm]}
 
-\item{method}{method to calculate scour depth. valid values are "Peter",
-"Bridge" or "Kikkawa"}
-
-\item{hm}{flow depth in the middle of the river upstream the curve [m]}
-
-\item{phi}{inner friction angle[°]. Values between 20° and 25° are
+\item{psi}{inner friction angle[°]. Values between 20° and 25° are
 recommended for flat rivers (J~0.0003). For steeper rivers (0.0035 < J <
 0.007), values between 35° and 40° are recomended (Bezzola 2012).}
+
+\item{method}{method to calculate scour depth. valid values are "Peter",
+"Bridge" or "Kikkawa"}
 }
 \value{
 \item{T0}{water table at maximal scour depth [m]}

@@ -319,14 +319,13 @@ if(method=="Shalash"){
 #' @param v flow velocity upstream the curve [m/s]
 #' @param Fr Froude number upstream the curve [-]
 #' @param h flow depth in the middle of the river upstream the curve [m]
-#' @param hm flow depth in the middle of the river upstream the curve [m]
 #' @param J bottom slope [-]
 #' @param r curve radius from center to the outer bank bottom [m]
 #' @param rm curve radius from center to the middle of the river [m]
 #' @param d16 d16 of grain size distribution [mm]
 #' @param dm d50 of grain size distribution [mm]
 #' @param d84 d84 of grain size distribution [mm]
-#' @param phi inner friction angle[°]. Values between 20° and 25° are
+#' @param psi inner friction angle[°]. Values between 20° and 25° are
 #'   recommended for flat rivers (J~0.0003). For steeper rivers (0.0035 < J <
 #'   0.007), values between 35° and 40° are recomended (Bezzola 2012).
 #' @param method method to calculate scour depth. valid values are "Peter",
@@ -386,8 +385,8 @@ if(method=="Shalash"){
 #' )
 #'
 #' @export
-scour_curve <- function(A, v, Fr, h, hm, J, r, rm, d16,
-                        dm = NULL, d84, phi = NULL,
+scour_curve <- function(A, v, Fr, h, J, r, rm, d16,
+                        dm = NULL, d84, psi = NULL,
                         method = "Peter") {
   # function body
 }
@@ -462,7 +461,7 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 #' Calculate scour depth formed by a groyne
 #'
 #' @usage scour_groyne(v,Fr,B,h,J,L,d16,dm,d84,Ks,delta,Kb=NULL,l=NULL, fs=0,
-#' method="Froehlich",bedload=F)
+#' method="Froehlich",bedload=FALSE)
 
 #' @param v flow velocity upstream the groyne [m/s]
 #' @param Fr Froude number upstream the groyne [-]
@@ -524,19 +523,20 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 #' scour_groyne(
 #'   v = v, Fr = Fr, h = h, J = J, L = L,
 #'   d16 = d16, dm = dm, d84 = d84,
-#'   Ks = Ks, delta = delta, bedload = T
+#'   Ks = Ks, delta = delta, bedload = TRUE
 #' )
 #'
 #' @export
 
 
 
-scour_groyne <- function(v,Fr,B,h,J,L,d16,dm,d84,Ks,delta,Kb=NULL,l=NULL, fs=0,method="Froehlich",bedload=F){
+scour_groyne <- function(v,Fr,B,h,J,L,d16,dm,d84,Ks,delta,Kb=NULL,l=NULL, fs=0,
+                         method="Froehlich",bedload= FALSE){
   if(method=="Froehlich"){
 
     K_delta<-(delta/90)^0.1
 
-    if(bedload==F){
+    if(bedload==FALSE){
       sigma<-sqrt(d84/d16)
       S<-(0.78*Ks*K_delta*(L/h)^0.63*Fr*(h/(dm/1000))^0.43*sigma^-1.87*h)+fs
     } else{

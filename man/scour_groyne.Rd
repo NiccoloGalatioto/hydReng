@@ -5,7 +5,7 @@
 \title{Scour depth formed by a groyne}
 \usage{
 scour_groyne(v,Fr,B,h,J,L,d16,dm,d84,Ks,delta,Kb=NULL,l=NULL, fs=0,
-method="Froehlich",bedload=F)
+method="Froehlich",bedload=FALSE)
 }
 \arguments{
 \item{v}{flow velocity upstream the groyne [m/s]}
@@ -82,7 +82,7 @@ delta <- 60
 scour_groyne(
   v = v, Fr = Fr, h = h, J = J, L = L,
   d16 = d16, dm = dm, d84 = d84,
-  Ks = Ks, delta = delta, bedload = T
+  Ks = Ks, delta = delta, bedload = TRUE
 )
 
 }

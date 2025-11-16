@@ -39,7 +39,7 @@ are recomended.[-]}
 
 \item{method}{method to calculate scour depth. valid values are "Froehlich"}
 
-\item{bedload}{Consicer bedload transportation iff bedload =TRUE}
+\item{bedload}{Consider bedload transportation if bedload =TRUE}
 }
 \value{
 \item{T0}{water table at maximal scour depth [m]}

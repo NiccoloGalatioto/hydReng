@@ -30,7 +30,7 @@ function and must not be specified}
 \item{l0}{length of fix sole protection downstream the gate [m] (for method Shalash)}
 
 \item{method}{method to calculate scour depth. valid values are "Eggenberger"
-or "Shalash". Independet of the choosen method, the position of the scour is
+or "Shalash". Independet of the chosen method, the position of the scour is
 calculated according to "Eggenberger".}
 }
 \value{

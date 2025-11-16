@@ -42,4 +42,4 @@ rhub::rhub_check(platform = "macos")
 
 
 # For submitting
-#devtools::release()
+devtools::release()

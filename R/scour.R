@@ -228,7 +228,7 @@ scour_vert <- function(Q, B, h, h_u, d90, d95, ful_ov,
 #'   (inclined gates) are recommended [-]
 #' @param l0 length of fix sole protection downstream the gate [m] (for method Shalash)
 #' @param method method to calculate scour depth. valid values are "Eggenberger"
-#'   or "Shalash". Independet of the choosen method, the position of the scour is
+#'   or "Shalash". Independet of the chosen method, the position of the scour is
 #'   calculated according to "Eggenberger".
 #'
 #'
@@ -479,7 +479,7 @@ scour_curve<-function(A,v,Fr,h,J,r,rm,d84,d16,dm=NULL,psi=NULL,method="Peter"){
 #' @param l length of the groyne (parallel to the river)[m]
 #' @param fs safety factor [-]
 #' @param method method to calculate scour depth. valid values are "Froehlich"
-#' @param bedload Consicer bedload transportation iff bedload =TRUE
+#' @param bedload Consider bedload transportation if bedload =TRUE
 #'
 #' @return
 #' \item{T0}{water table at maximal scour depth [m]}

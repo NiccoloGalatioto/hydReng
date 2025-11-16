@@ -6,6 +6,12 @@
 - Added `shear_stress()`, a function to calculate shear stress, shear velocity, and dimensionless shear stress
 - Added `wt_sup()`, a function to calculate the superelevation of the water table in a river curve
 - Added `filterlayer()`, a function to calculate the range of the grain size distribution of a filter layer
+- Added `scour_vert()`, a function to calculate the scour depth and length (vertical jet)
+- Added `scour_horz()`, a function to calculate the scour depth and length (horizontal jet)
+- Added `scour_curve()`, a function to calculate the scour depth formed in a curve
+- Added `scour_groyne()`, a function to calculate the scour depth formed by a groyne
+
+
 
 
 # hydReng 0.1.0
